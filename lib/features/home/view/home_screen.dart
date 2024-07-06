@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../../widgets/view/custom_text_button.dart';
 import '../../../widgets/widgets.dart';
 import '../../features.dart';
@@ -16,18 +17,24 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPage extends State<MainPage> {
+  final GlobalKey _helpButtonKey = GlobalKey();
+  final GlobalKey _selectBondedDeviceKey = GlobalKey();
+  final GlobalKey _discoveryKey = GlobalKey();
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
   String _name = "...";
 
   @override
   void initState() {
     super.initState();
+    _createTutorial();
 
-    FlutterBluetoothSerial.instance.state.then((state) {
-      setState(() {
-        _bluetoothState = state;
-      });
-    });
+    FlutterBluetoothSerial.instance.state.then(
+      (state) {
+        setState(() {
+          _bluetoothState = state;
+        });
+      },
+    );
 
     Future.doWhile(() async {
       final isEnabled = await FlutterBluetoothSerial.instance.isEnabled;
@@ -51,6 +58,7 @@ class _MainPage extends State<MainPage> {
         _bluetoothState = state;
       });
     });
+    _createTutorial();
   }
 
   @override
@@ -74,6 +82,7 @@ class _MainPage extends State<MainPage> {
         ),
         actions: <Widget>[
           IconButton(
+            key: _helpButtonKey,
             icon: const Icon(
               CupertinoIcons.question_circle_fill,
             ),
@@ -128,6 +137,7 @@ class _MainPage extends State<MainPage> {
             visible: _bluetoothState.isEnabled,
             child: ListTile(
               title: CustomTextButton(
+                key: _discoveryKey,
                 onTap: _bluetoothState.isEnabled
                     ? () async {
                         final BluetoothDevice? selectedDevice =
@@ -144,7 +154,7 @@ class _MainPage extends State<MainPage> {
                         }
                       }
                     : null,
-                title: 'Explore discovered devices',
+                title: 'Discovery PC',
               ),
             ),
           ),
@@ -155,6 +165,7 @@ class _MainPage extends State<MainPage> {
             visible: _bluetoothState.isEnabled,
             child: ListTile(
               title: CustomTextButton(
+                key: _selectBondedDeviceKey,
                 onTap: _bluetoothState.isEnabled
                     ? () async {
                         final BluetoothDevice? selectedDevice =
@@ -173,7 +184,7 @@ class _MainPage extends State<MainPage> {
                         }
                       }
                     : null,
-                title: 'Connect to paired PC to Control',
+                title: 'Connect to paired PC to control',
               ),
             ),
           ),
@@ -217,12 +228,79 @@ class _MainPage extends State<MainPage> {
   }
 
   void _launchURL() async {
-    const url = 'https://example.com/documentation';
+    const url = 'https://devleloper.medium.com/slide-pilot-guide-3853df2f19f9';
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  Future<void> _createTutorial() async {
+    final targets = [
+      TargetFocus(
+        identify: 'helpButton',
+        keyTarget: _helpButtonKey,
+        alignSkip: Alignment.bottomCenter,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) => Text(
+              'Read the application documentation for better understanding and experience',
+              style: GoogleFonts.redHatDisplay(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: 'discovery',
+        keyTarget: _discoveryKey,
+        alignSkip: Alignment.bottomCenter,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) => Text(
+              'Select the device you want to connect to from the list',
+              style: GoogleFonts.redHatDisplay(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: 'selectBondedDevice',
+        keyTarget: _selectBondedDeviceKey,
+        alignSkip: Alignment.bottomCenter,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) => Text(
+              'If you have already paired your device with your PC, then proceed to control the presentation',
+              style: GoogleFonts.redHatDisplay(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ];
+
+    final tutorial = TutorialCoachMark(
+      targets: targets,
+    );
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      tutorial.show(context: context);
+    });
   }
 }
