@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "435304343285",
+    "project_id": "slide-pilot",
+    "storage_bucket": "slide-pilot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435304343285:android:3ef539fe82d2e9aa7047bc",
+        "android_client_info": {
+          "package_name": "dev.blism.slidepilot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSA7Qv4Q42X_DdqgiCfLfTJCm9aof22pQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

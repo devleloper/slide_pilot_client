@@ -1,4 +1,4 @@
-package com.example.slide_pilot_client
+package dev.blism.slidepilot
 
 import io.flutter.embedding.android.FlutterActivity
 
