@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../../widgets/view/custom_text_button.dart';
 import '../../../widgets/widgets.dart';
@@ -18,15 +19,14 @@ class MainPage extends StatefulWidget {
 
 class _MainPage extends State<MainPage> {
   final GlobalKey _helpButtonKey = GlobalKey();
-  final GlobalKey _selectBondedDeviceKey = GlobalKey();
-  final GlobalKey _discoveryKey = GlobalKey();
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
   String _name = "...";
+  bool _isFirstTime = true;
 
   @override
   void initState() {
     super.initState();
-    _createTutorial();
+    _checkAndShowTutorial();
 
     FlutterBluetoothSerial.instance.state.then(
       (state) {
@@ -58,7 +58,16 @@ class _MainPage extends State<MainPage> {
         _bluetoothState = state;
       });
     });
-    _createTutorial();
+  }
+
+  Future<void> _checkAndShowTutorial() async {
+    final prefs = await SharedPreferences.getInstance();
+    _isFirstTime = prefs.getBool('isFirstTime') ?? true;
+
+    if (_isFirstTime) {
+      _createTutorial();
+      await prefs.setBool('isFirstTime', false);
+    }
   }
 
   @override
@@ -137,7 +146,6 @@ class _MainPage extends State<MainPage> {
             visible: _bluetoothState.isEnabled,
             child: ListTile(
               title: CustomTextButton(
-                key: _discoveryKey,
                 onTap: _bluetoothState.isEnabled
                     ? () async {
                         final BluetoothDevice? selectedDevice =
@@ -165,7 +173,6 @@ class _MainPage extends State<MainPage> {
             visible: _bluetoothState.isEnabled,
             child: ListTile(
               title: CustomTextButton(
-                key: _selectBondedDeviceKey,
                 onTap: _bluetoothState.isEnabled
                     ? () async {
                         final BluetoothDevice? selectedDevice =
@@ -248,42 +255,6 @@ class _MainPage extends State<MainPage> {
             align: ContentAlign.bottom,
             builder: (context, controller) => Text(
               'Read the application documentation for better understanding and experience',
-              style: GoogleFonts.redHatDisplay(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: 'discovery',
-        keyTarget: _discoveryKey,
-        alignSkip: Alignment.bottomCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            builder: (context, controller) => Text(
-              'Select the device you want to connect to from the list',
-              style: GoogleFonts.redHatDisplay(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: 'selectBondedDevice',
-        keyTarget: _selectBondedDeviceKey,
-        alignSkip: Alignment.bottomCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            builder: (context, controller) => Text(
-              'If you have already paired your device with your PC, then proceed to control the presentation',
               style: GoogleFonts.redHatDisplay(
                 color: Colors.white,
                 fontSize: 16,

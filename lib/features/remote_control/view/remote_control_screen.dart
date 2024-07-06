@@ -295,9 +295,7 @@ class CustomActionButtonsRow extends StatelessWidget {
         ),
         CustomActionButton(
           icon: CupertinoIcons.search,
-          onTap: logic.isConnected
-              ? () => showFeatureUnavailableDialog(context)
-              : null,
+          onTap: logic.isConnected ? () => logic.sendPointerCommand() : null,
         ),
         CustomActionButton(
           icon: CupertinoIcons.chevron_forward,

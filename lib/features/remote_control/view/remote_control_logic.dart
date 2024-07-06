@@ -102,6 +102,8 @@ class RemoteControlLogic extends ChangeNotifier {
 
   void goLeft() => _sendMessage("*#*LEFT*@*");
 
+  void sendPointerCommand() => _sendMessage("*#*SHIFT+F7*@*");
+
   void _onDataReceived(Uint8List data) {
     int backspacesCounter = 0;
     data.forEach((byte) {
@@ -242,10 +244,6 @@ class RemoteControlLogic extends ChangeNotifier {
     int dx = details.delta.dx.round();
     int dy = details.delta.dy.round();
     _sendMessage("*#*Offset(${dx.toString()}, ${dy.toString()})*@*");
-  }
-
-  void sendPointerCommand() {
-    _sendMessage("*#*POINTER*@*");
   }
 }
 
