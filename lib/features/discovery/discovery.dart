@@ -1,2 +1,2 @@
-export 'view/discovery_screen.dart';
-export 'view/discovery_logic.dart';
+export 'feature/discovery_screen.dart';
+export 'feature/discovery_logic.dart';
