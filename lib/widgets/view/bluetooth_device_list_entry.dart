@@ -72,7 +72,7 @@ class BluetoothDeviceListEntry extends ListTile {
                 ),
               if (device.isConnected)
                 const Icon(
-                  CupertinoIcons.arrow_up_arrow_down,
+                  CupertinoIcons.exclamationmark_triangle_fill,
                 ),
               const SizedBox(
                 width: 8,
