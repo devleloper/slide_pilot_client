@@ -9,6 +9,7 @@ ThemeData themeData() {
     textTheme: GoogleFonts.redHatDisplayTextTheme(),
     primaryColor: appColors.primaryColor,
     appBarTheme: AppBarTheme(
+      surfaceTintColor: Colors.transparent,
       toolbarTextStyle: GoogleFonts.redHatDisplay(
         textStyle: GoogleFonts.redHatDisplay(
           fontSize: 16,

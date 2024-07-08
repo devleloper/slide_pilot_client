@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 
 class CustomActionButton extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final VoidCallback? onTap;
 
   const CustomActionButton({
@@ -28,7 +28,7 @@ class CustomActionButton extends StatelessWidget {
           customBorder: const CircleBorder(),
           onTap: onTap,
           child: Center(
-            child: Icon(icon, size: 32, color: Colors.white),
+            child: icon,
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:control_pad_plus/control_pad_plus.dart';
@@ -290,15 +291,21 @@ class CustomActionButtonsRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         CustomActionButton(
-          icon: CupertinoIcons.chevron_back,
+          icon:
+              Icon(CupertinoIcons.chevron_back, size: 32, color: Colors.white),
           onTap: logic.isConnected ? () => logic.goLeft() : null,
         ),
         CustomActionButton(
-          icon: CupertinoIcons.search,
+          icon: SvgPicture.asset(
+            'assets/logo.svg',
+            width: 32,
+            height: 32,
+          ),
           onTap: logic.isConnected ? () => logic.sendPointerCommand() : null,
         ),
         CustomActionButton(
-          icon: CupertinoIcons.chevron_forward,
+          icon: Icon(CupertinoIcons.chevron_forward,
+              size: 32, color: Colors.white),
           onTap: logic.isConnected ? () => logic.goRight() : null,
         ),
       ],
