@@ -1,2 +1,2 @@
-export 'view/bluetooth_device_list_entry.dart';
-export 'view/custom_switch_list_tile.dart';
+export 'components/bluetooth_device_list_entry.dart';
+export 'components/custom_switch_list_tile.dart';

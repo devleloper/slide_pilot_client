@@ -102,7 +102,7 @@ class RemoteControlLogic extends ChangeNotifier {
 
   void goLeft() => _sendMessage("*#*LEFT*@*");
 
-  void sendPointerCommand() => _sendMessage("*#*SHIFT+F7*@*");
+  void sendPointerCommand() => _sendMessage("*#*CONTROL+CONTROL*@*");
 
   void _onDataReceived(Uint8List data) {
     int backspacesCounter = 0;

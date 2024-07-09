@@ -2,10 +2,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import '../../../widgets/view/custom_text_button.dart';
+import '../../../widgets/components/custom_text_button.dart';
 import '../../../widgets/widgets.dart';
 import '../../features.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -80,14 +81,23 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Slide Pilot',
-          style: GoogleFonts.redHatDisplay(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+        title: Row(
+          children: [
+            SvgPicture.asset(
+              'assets/logo.svg',
+              width: 22,
+              height: 22,
+            ),
+            const SizedBox(width: 16),
+            Text(
+              'Slide Pilot',
+              style: GoogleFonts.redHatDisplay(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
         actions: <Widget>[
           IconButton(
@@ -101,6 +111,7 @@ class _MainPage extends State<MainPage> {
       ),
       body: ListView(
         children: <Widget>[
+          const SizedBox(height: 16),
           CustomSwitchListTile(
             title: 'Enable Bluetooth',
             value: _bluetoothState.isEnabled,
@@ -118,6 +129,7 @@ class _MainPage extends State<MainPage> {
               });
             },
           ),
+          const SizedBox(height: 16),
           Visibility(
             visible: _bluetoothState.isEnabled,
             child: ListTile(
@@ -139,9 +151,7 @@ class _MainPage extends State<MainPage> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           Visibility(
             visible: _bluetoothState.isEnabled,
             child: ListTile(
@@ -166,9 +176,7 @@ class _MainPage extends State<MainPage> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 16),
           Visibility(
             visible: _bluetoothState.isEnabled,
             child: ListTile(
@@ -195,9 +203,7 @@ class _MainPage extends State<MainPage> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
         ],
       ),
     );

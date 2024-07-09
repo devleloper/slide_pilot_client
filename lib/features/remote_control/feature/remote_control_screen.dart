@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:control_pad_plus/control_pad_plus.dart';
 import '../../../theme/theme.dart';
-import '../../../widgets/view/custom_action_button.dart';
+import '../../../widgets/components/custom_action_button.dart';
 import '../../../widgets/widgets.dart';
 import 'remote_control_logic.dart';
 
@@ -56,12 +56,14 @@ class RemoteControlScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: <Widget>[
+            const SizedBox(height: 16),
             CustomSwitchListTile(
               logic: logic,
               title: 'Gyroscope',
               value: logic.isGyroOn,
               onChanged: (isOn) => logic.accelerometerControl(isOn),
             ),
+            const SizedBox(height: 16),
             if (logic.isJoystick)
               Container(
                 color: Colors.white,
@@ -298,8 +300,8 @@ class CustomActionButtonsRow extends StatelessWidget {
         CustomActionButton(
           icon: SvgPicture.asset(
             'assets/logo.svg',
-            width: 32,
-            height: 32,
+            width: 42,
+            height: 42,
           ),
           onTap: logic.isConnected ? () => logic.sendPointerCommand() : null,
         ),
@@ -311,6 +313,8 @@ class CustomActionButtonsRow extends StatelessWidget {
       ],
     );
   }
+
+  // Disabled
 
   void showFeatureUnavailableDialog(BuildContext context) {
     showCupertinoDialog(
@@ -330,6 +334,8 @@ class CustomActionButtonsRow extends StatelessWidget {
     );
   }
 }
+
+// Disabled
 
 class MessageInputField extends StatelessWidget {
   final RemoteControlLogic logic;
