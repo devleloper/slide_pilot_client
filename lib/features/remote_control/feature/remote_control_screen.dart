@@ -36,9 +36,7 @@ class RemoteControlScreen extends StatelessWidget {
       appBar: AppBar(
         title: logic.isConnecting
             ? Text('Connecting to ${logic.server.name}...')
-            : logic.isConnected
-                ? Text('Connected with ${logic.server.name}')
-                : Text('Disconnected with ${logic.server.name}'),
+            : Text('Connected with ${logic.server.name}'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.close),
@@ -48,8 +46,7 @@ class RemoteControlScreen extends StatelessWidget {
             icon: const Icon(
               CupertinoIcons.refresh,
             ),
-            onPressed:
-                logic.isConnected ? null : () => logic.connectToBluetooth(),
+            onPressed: () => logic.connectToBluetooth(),
           ),
         ],
       ),
@@ -155,57 +152,49 @@ class CustomScrollActionsRow extends StatelessWidget {
           CustomScrollActionButton(
             icon: CupertinoIcons.chevron_up_circle,
             tooltip: 'Scroll up',
-            onPressed: logic.isConnected
-                ? () => logic.scroll(DragUpdateDetails(
-                      delta: const Offset(0.0, -1.0),
-                      globalPosition: const Offset(0.0, 0.0),
-                    ))
-                : null,
+            onPressed: () => logic.scroll(DragUpdateDetails(
+              delta: const Offset(0.0, -1.0),
+              globalPosition: const Offset(0.0, 0.0),
+            )),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.chevron_down_circle,
             tooltip: 'Scroll down',
-            onPressed: logic.isConnected
-                ? () => logic.scroll(DragUpdateDetails(
-                      delta: const Offset(0.0, 1.0),
-                      globalPosition: const Offset(0.0, 0.0),
-                    ))
-                : null,
+            onPressed: () => logic.scroll(DragUpdateDetails(
+              delta: const Offset(0.0, 1.0),
+              globalPosition: const Offset(0.0, 0.0),
+            )),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.zoom_in,
             tooltip: 'Zoom in',
-            onPressed: logic.isConnected
-                ? () => logic.zoom(DragUpdateDetails(
-                      delta: const Offset(0.0, -1.0),
-                      globalPosition: const Offset(0.0, 0.0),
-                    ))
-                : null,
+            onPressed: () => logic.zoom(DragUpdateDetails(
+              delta: const Offset(0.0, -1.0),
+              globalPosition: const Offset(0.0, 0.0),
+            )),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.zoom_out,
             tooltip: 'Zoom out',
-            onPressed: logic.isConnected
-                ? () => logic.zoom(DragUpdateDetails(
-                      delta: const Offset(0.0, 1.0),
-                      globalPosition: const Offset(0.0, 0.0),
-                    ))
-                : null,
+            onPressed: () => logic.zoom(DragUpdateDetails(
+              delta: const Offset(0.0, 1.0),
+              globalPosition: const Offset(0.0, 0.0),
+            )),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.flag_fill,
             tooltip: 'Present from beginning',
-            onPressed: logic.isConnected ? () => logic.present() : null,
+            onPressed: () => logic.present(),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.forward_fill,
             tooltip: 'Present from current slide',
-            onPressed: logic.isConnected ? () => logic.presentCurrent() : null,
+            onPressed: () => logic.presentCurrent(),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.fullscreen_exit,
             tooltip: 'Close presentation',
-            onPressed: logic.isConnected ? () => logic.exit() : null,
+            onPressed: () => logic.exit(),
           ),
         ],
       ),
@@ -249,7 +238,7 @@ class CustomActionButtonsRow extends StatelessWidget {
         CustomActionButton(
           icon:
               Icon(CupertinoIcons.chevron_back, size: 32, color: Colors.white),
-          onTap: logic.isConnected ? () => logic.goLeft() : null,
+          onTap: () => logic.goLeft(),
         ),
         CustomActionButton(
           icon: SvgPicture.asset(
@@ -257,12 +246,12 @@ class CustomActionButtonsRow extends StatelessWidget {
             width: 42,
             height: 42,
           ),
-          onTap: logic.isConnected ? () => logic.sendPointerCommand() : null,
+          onTap: () => logic.sendPointerCommand(),
         ),
         CustomActionButton(
           icon: Icon(CupertinoIcons.chevron_forward,
               size: 32, color: Colors.white),
-          onTap: logic.isConnected ? () => logic.goRight() : null,
+          onTap: () => logic.goRight(),
         ),
       ],
     );
@@ -309,12 +298,10 @@ class MessageInputField extends StatelessWidget {
               decoration: InputDecoration.collapsed(
                 hintText: (logic.isConnecting
                     ? 'Wait until connected...'
-                    : logic.isConnected
-                        ? 'Type on PC...'
-                        : 'BT got disconnected'),
+                    : 'Type on PC...'),
                 hintStyle: const TextStyle(color: Colors.grey),
               ),
-              enabled: logic.isConnected,
+              enabled: true,
             ),
           ),
         ),
@@ -322,9 +309,8 @@ class MessageInputField extends StatelessWidget {
           margin: const EdgeInsets.all(8.0),
           child: IconButton(
             icon: const Icon(Icons.send),
-            onPressed: logic.isConnected
-                ? () => logic.sendStringToType(logic.textEditingController.text)
-                : null,
+            onPressed: () =>
+                logic.sendStringToType(logic.textEditingController.text),
           ),
         ),
       ],

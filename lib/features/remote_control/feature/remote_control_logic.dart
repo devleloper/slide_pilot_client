@@ -19,7 +19,6 @@ class RemoteControlLogic extends ChangeNotifier {
   final ScrollController listScrollController = ScrollController();
 
   bool isConnecting = true;
-  bool isConnected = false;
   bool doubleTapped = false;
   bool condition = true;
   bool isJoystick = false;
@@ -45,51 +44,35 @@ class RemoteControlLogic extends ChangeNotifier {
       }
     });
 
-    if (server.isConnected) {
-      isConnected = true;
-      isConnecting = false;
-    }
-
     connectToBluetooth();
   }
 
   Future<void> connectToBluetooth() async {
-    if (!isConnected) {
-      _bluetoothConnection =
-          await BluetoothConnection.toAddress(server.address);
+    _bluetoothConnection = await BluetoothConnection.toAddress(server.address);
 
-      isConnecting = false;
-      isConnected = true;
+    isConnecting = false;
+    notifyListeners();
+
+    _streamSubscription = _bluetoothConnection!.input?.listen(_onDataReceived);
+
+    _streamSubscription!.onDone(() {
+      print('Disconnected by remote!');
       notifyListeners();
-
-      _streamSubscription =
-          _bluetoothConnection!.input?.listen(_onDataReceived);
-
-      _streamSubscription!.onDone(() {
-        print('Disconnected by remote!');
-        isConnected = false;
-        notifyListeners();
-      });
-    }
+    });
   }
 
   @override
   void dispose() {
-    if (isConnected) {
-      _streamSubscription?.cancel();
-      _bluetoothConnection!.finish();
-    }
+    _streamSubscription?.cancel();
+    _bluetoothConnection?.finish();
     super.dispose();
   }
 
   void close() {
-    if (isConnected) {
-      _streamSubscription = null;
-      _bluetoothConnection!.finish();
-      isConnected = false;
-      notifyListeners();
-      print('We are disconnecting locally!');
-    }
+    _streamSubscription = null;
+    _bluetoothConnection?.finish();
+    notifyListeners();
+    print('We are disconnecting locally!');
   }
 
   void present() => _sendMessage("*#*F5*@*");

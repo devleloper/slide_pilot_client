@@ -74,7 +74,7 @@ class AppColors {
 class AppPresets {
   final neonShadow = const BoxShadow(
     blurRadius: 20,
-    color: Color.fromRGBO(92, 107, 192, 0.5),
+    color: Color.fromRGBO(92, 107, 192, 0.6),
     offset: Offset(0, 4),
   );
 

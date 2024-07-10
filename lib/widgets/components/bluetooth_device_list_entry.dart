@@ -70,13 +70,6 @@ class BluetoothDeviceListEntry extends ListTile {
                         ]),
                   ),
                 ),
-              if (device.isConnected)
-                const Icon(
-                  CupertinoIcons.exclamationmark_triangle_fill,
-                ),
-              const SizedBox(
-                width: 8,
-              ),
               if (device.isBonded)
                 const Icon(
                   CupertinoIcons.link,
