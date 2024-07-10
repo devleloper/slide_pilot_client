@@ -165,17 +165,6 @@ class _MainPage extends State<MainPage> {
               ),
             )),
           ),
-          // Visibility(
-          //   visible: _bluetoothState.isEnabled,
-          //   child: ListTile(
-          //     title: Text(
-          //       'Devices discovery and connection',
-          //       style: GoogleFonts.redHatDisplay(
-          //         fontSize: 16,
-          //       ),
-          //     ),
-          //   ),
-          // ),
           const SizedBox(height: 16),
           Visibility(
             visible: _bluetoothState.isEnabled,
@@ -225,6 +214,19 @@ class _MainPage extends State<MainPage> {
                       }
                     : null,
                 title: 'Connect to paired PC to control',
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Visibility(
+            visible: _bluetoothState.isEnabled,
+            child: ListTile(
+              title: Text(
+                '*To connect and control, the server must be running on the PC',
+                style: GoogleFonts.redHatDisplay(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
