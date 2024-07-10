@@ -86,61 +86,14 @@ class RemoteControlScreen extends StatelessWidget {
                     onPanUpdate: logic.handlePanUpdate,
                     child: Container(
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: theme.primaryColor,
                         boxShadow: [
                           AppPresets().neonShadow,
                         ],
                       ),
-                      color: theme.primaryColor,
                       child: Stack(
                         children: [
-                          const Positioned(
-                            top: 10,
-                            left: 10,
-                            child: Opacity(
-                              opacity: 0.50,
-                              child: Icon(
-                                color: Colors.white,
-                                Icons.rounded_corner,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                          const Positioned(
-                            top: 10,
-                            right: 10,
-                            child: Opacity(
-                              opacity: 0.50,
-                              child: Icon(
-                                color: Colors.white,
-                                Icons.rounded_corner,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                          const Positioned(
-                            bottom: 10,
-                            left: 10,
-                            child: Opacity(
-                              opacity: 0.50,
-                              child: Icon(
-                                color: Colors.white,
-                                Icons.rounded_corner,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                          const Positioned(
-                            bottom: 10,
-                            right: 10,
-                            child: Opacity(
-                              opacity: 0.50,
-                              child: Icon(
-                                color: Colors.white,
-                                Icons.rounded_corner,
-                                size: 24,
-                              ),
-                            ),
-                          ),
                           Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -162,6 +115,7 @@ class RemoteControlScreen extends StatelessWidget {
                                     'Touchpad',
                                     style: GoogleFonts.redHatDisplay(
                                       fontSize: 16,
+                                      fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                     ),
                                   ),

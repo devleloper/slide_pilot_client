@@ -80,6 +80,31 @@ class _MainPage extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // bottomNavigationBar: BottomAppBar(
+      //   child: Column(
+      //     children: [
+      //       Text(
+      //         'Developed by Devlet Boltaev in Blism Solutions',
+      //         style: GoogleFonts.redHatDisplay(
+      //           color: Colors.black.withOpacity(0.5),
+      //           fontSize: 12,
+      //           fontWeight: FontWeight.w600,
+      //         ),
+      //       ),
+      //       const SizedBox(
+      //         height: 16,
+      //       ),
+      //       Text(
+      //         'Version 1.0.0',
+      //         style: GoogleFonts.redHatDisplay(
+      //           color: Colors.black.withOpacity(0.5),
+      //           fontSize: 12,
+      //           fontWeight: FontWeight.w600,
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       appBar: AppBar(
         title: Row(
           children: [
@@ -140,17 +165,17 @@ class _MainPage extends State<MainPage> {
               ),
             )),
           ),
-          Visibility(
-            visible: _bluetoothState.isEnabled,
-            child: ListTile(
-              title: Text(
-                'Devices discovery and connection',
-                style: GoogleFonts.redHatDisplay(
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
+          // Visibility(
+          //   visible: _bluetoothState.isEnabled,
+          //   child: ListTile(
+          //     title: Text(
+          //       'Devices discovery and connection',
+          //       style: GoogleFonts.redHatDisplay(
+          //         fontSize: 16,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(height: 16),
           Visibility(
             visible: _bluetoothState.isEnabled,
