@@ -202,28 +202,52 @@ class _HomePage extends State<HomePage> {
                 textColor: Colors.white,
                 buttonColor: Theme.of(context).primaryColor,
                 onTap: _bluetoothState.isEnabled
-                    ? () async {
-                        final BluetoothDevice? selectedDevice =
-                            await Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                          return const SelectBondedDevicePage(
-                              checkAvailability: true);
-                        }));
-
-                        if (selectedDevice != null) {
-                          print(
-                              'Connect -> selected ' + selectedDevice.address);
-                          _startRemoteConnection(context, selectedDevice);
-                        } else {
-                          print('Connect -> no device selected');
-                        }
+                    ? () {
+                        _showServerReminderDialog(context);
                       }
                     : null,
-                title: 'Connect to paired PC to control',
+                title: 'Connect to Control PC',
               ),
             ),
           ),
           const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+
+  void _showServerReminderDialog(BuildContext context) {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        title: const Text("Server Reminder"),
+        content: const Text(
+            "Please make sure the Slide Pilot Server is running on your PC."),
+        actions: [
+          CupertinoDialogAction(
+            child: const Text("Cancel"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          CupertinoDialogAction(
+            child: const Text("Proceed"),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              final BluetoothDevice? selectedDevice =
+                  await Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                return const SelectBondedDevicePage(checkAvailability: true);
+              }));
+
+              if (selectedDevice != null) {
+                print('Connect -> selected ' + selectedDevice.address);
+                _startRemoteConnection(context, selectedDevice);
+              } else {
+                print('Connect -> no device selected');
+              }
+            },
+          ),
         ],
       ),
     );

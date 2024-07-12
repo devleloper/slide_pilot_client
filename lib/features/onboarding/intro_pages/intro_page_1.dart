@@ -84,6 +84,25 @@ class IntroPage1 extends StatelessWidget {
                     ),
                   ],
                 ),
+                Row(
+                  children: [
+                    const Icon(
+                      CupertinoIcons.checkmark_alt_circle,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        'Establish a connection and get started',
+                        style: GoogleFonts.redHatDisplay(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ],

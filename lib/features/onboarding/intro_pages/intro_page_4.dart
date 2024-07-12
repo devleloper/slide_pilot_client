@@ -46,7 +46,6 @@ class IntroPage4 extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Image.asset('assets/guide/client/connect_1.jpg'),
-
                 const SizedBox(height: 16),
                 Text(
                   'Then select your PC from the list and wait for the pairing message to appear on both devices. Accept the pairing on both devices. (You can also do this manually in Android Bluetooth settings)',
