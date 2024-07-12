@@ -242,7 +242,7 @@ class CustomActionButtonsRow extends StatelessWidget {
         ),
         CustomActionButton(
           icon: SvgPicture.asset(
-            'assets/logo.svg',
+            'assets/brand/logo.svg',
             width: 42,
             height: 42,
           ),

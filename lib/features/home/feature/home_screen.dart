@@ -11,14 +11,14 @@ import '../../../widgets/widgets.dart';
 import '../../features.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  _MainPage createState() => _MainPage();
+  _HomePage createState() => _HomePage();
 }
 
-class _MainPage extends State<MainPage> {
+class _HomePage extends State<HomePage> {
   final GlobalKey _helpButtonKey = GlobalKey();
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
   String _name = "...";
@@ -109,7 +109,7 @@ class _MainPage extends State<MainPage> {
         title: Row(
           children: [
             SvgPicture.asset(
-              'assets/logo.svg',
+              'assets/brand/logo.svg',
               width: 22,
               height: 22,
             ),
@@ -214,19 +214,6 @@ class _MainPage extends State<MainPage> {
                       }
                     : null,
                 title: 'Connect to paired PC to control',
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Visibility(
-            visible: _bluetoothState.isEnabled,
-            child: ListTile(
-              title: Text(
-                '*To connect and control, the server must be running on the PC',
-                style: GoogleFonts.redHatDisplay(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
               ),
             ),
           ),
