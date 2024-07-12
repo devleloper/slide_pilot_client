@@ -5,6 +5,7 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:slide_pilot_client/theme/theme.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../../widgets/components/custom_text_button.dart';
 import '../../../widgets/widgets.dart';
@@ -170,6 +171,9 @@ class _HomePage extends State<HomePage> {
             visible: _bluetoothState.isEnabled,
             child: ListTile(
               title: CustomTextButton(
+                buttonShadow: AppPresets().neonShadow,
+                textColor: Colors.white,
+                buttonColor: Theme.of(context).primaryColor,
                 onTap: _bluetoothState.isEnabled
                     ? () async {
                         final BluetoothDevice? selectedDevice =
@@ -195,6 +199,9 @@ class _HomePage extends State<HomePage> {
             visible: _bluetoothState.isEnabled,
             child: ListTile(
               title: CustomTextButton(
+                buttonShadow: AppPresets().neonShadow,
+                textColor: Colors.white,
+                buttonColor: Theme.of(context).primaryColor,
                 onTap: _bluetoothState.isEnabled
                     ? () async {
                         final BluetoothDevice? selectedDevice =

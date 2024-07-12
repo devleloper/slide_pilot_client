@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:slide_pilot_client/theme/theme.dart';
 
-class IntroPage3 extends StatelessWidget {
-  const IntroPage3({super.key});
+class IntroPage5 extends StatelessWidget {
+  const IntroPage5({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class IntroPage3 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Step 2',
+              'Get Started! 🎉',
               style: GoogleFonts.redHatDisplay(
                 fontSize: 24,
                 color: Colors.white,
@@ -26,7 +25,7 @@ class IntroPage3 extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'This is a small guide on how to use this application and effectively control your awesome presentations!',
+              'You are now ready to start using Slide Pilot and take control of your presentations. Enjoy!',
               style: GoogleFonts.redHatDisplay(
                 fontSize: 16,
                 color: Colors.white,

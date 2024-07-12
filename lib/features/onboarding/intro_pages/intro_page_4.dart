@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:slide_pilot_client/theme/theme.dart';
 
-class IntroPage3 extends StatelessWidget {
-  const IntroPage3({super.key});
+class IntroPage4 extends StatelessWidget {
+  const IntroPage4({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class IntroPage3 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Step 2',
+              'Step 3',
               style: GoogleFonts.redHatDisplay(
                 fontSize: 24,
                 color: Colors.white,

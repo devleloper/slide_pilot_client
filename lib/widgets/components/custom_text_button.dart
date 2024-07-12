@@ -6,11 +6,17 @@ import '../../theme/theme.dart';
 class CustomTextButton extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
+  final Color textColor;
+  final Color buttonColor;
+  final BoxShadow buttonShadow;
 
   const CustomTextButton({
     Key? key,
     required this.title,
     this.onTap,
+    required this.textColor,
+    required this.buttonColor,
+    required this.buttonShadow,
   }) : super(key: key);
 
   @override
@@ -21,10 +27,10 @@ class CustomTextButton extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [AppPresets().neonShadow],
+        boxShadow: [buttonShadow],
       ),
       child: Material(
-        color: theme.primaryColor,
+        color: buttonColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -38,7 +44,7 @@ class CustomTextButton extends StatelessWidget {
               title,
               style: GoogleFonts.redHatDisplay(
                 fontSize: 16,
-                color: Colors.white,
+                color: textColor,
               ),
             ),
           ),

@@ -10,31 +10,28 @@ class IntroPage2 extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
-      color: Colors.white,
+      color: theme.primaryColor,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              height: 400,
-              width: 400,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  AppPresets().neonShadow,
-                ],
-              ),
-              child: Image.asset(
-                'assets/guide/1.jpg',
-                fit: BoxFit.contain,
-              ),
-            ),
             Text(
-              'This is small guide how to use this application and effectiverly control your awesome presentations!',
+              'Step 1',
+              style: GoogleFonts.redHatDisplay(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'This is a small guide on how to use this application and effectively control your awesome presentations!',
               style: GoogleFonts.redHatDisplay(
                 fontSize: 16,
+                color: Colors.white,
               ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

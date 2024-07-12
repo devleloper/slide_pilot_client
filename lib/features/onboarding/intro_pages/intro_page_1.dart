@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:slide_pilot_client/theme/theme.dart';
+import 'package:slide_pilot_client/widgets/components/custom_text_button.dart';
 
 class IntroPage1 extends StatelessWidget {
   const IntroPage1({super.key});
@@ -12,40 +13,161 @@ class IntroPage1 extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
-      color: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [AppPresets().neonShadow],
-              ),
-              child: SvgPicture.asset(
-                'assets/brand/logo_color.svg',
-                fit: BoxFit.fill,
-              ),
+      color: theme.primaryColor,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(height: 32),
+          SvgPicture.asset(
+            'assets/brand/logo_color.svg',
+            height: 100,
+            width: 100,
+          ),
+          const SizedBox(height: 32),
+          Text(
+            'Welcome to Slide Pilot!',
+            style: GoogleFonts.redHatDisplay(
+              fontSize: 24,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
             ),
-            const SizedBox(height: 16),
-            Text(
-              'Welcome to Slide Pilot!',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Slide Pilot is your ultimate tool for managing presentations with ease. In the following steps, you will learn how to:',
+            style: GoogleFonts.redHatDisplay(
+              fontSize: 16,
+              color: Colors.white,
             ),
-            const SizedBox(height: 16),
-            Text(
-              'Discover how to effortlessly navigate through slides, highlight key points with the Spotlight feature, and control the cursor with precision. Whether you’re in a boardroom or a classroom, Slide Pilot puts you in command of your presentation, making it a breeze to impress your audience.',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 16,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    CupertinoIcons.checkmark_alt_circle,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      'Set up your Android device for seamless connection.',
+                      style: GoogleFonts.redHatDisplay(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const Icon(
+                    CupertinoIcons.checkmark_alt_circle,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      'Install necessary software on your PC for connectivity.',
+                      style: GoogleFonts.redHatDisplay(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const Icon(
+                    CupertinoIcons.checkmark_alt_circle,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      'Effortlessly navigate through slides.',
+                      style: GoogleFonts.redHatDisplay(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const Icon(
+                    CupertinoIcons.checkmark_alt_circle,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      'Highlight key points with the Spotlight feature.',
+                      style: GoogleFonts.redHatDisplay(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const Icon(
+                    CupertinoIcons.checkmark_alt_circle,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      'Control the cursor with precision.',
+                      style: GoogleFonts.redHatDisplay(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const Icon(
+                    CupertinoIcons.checkmark_alt_circle,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      'Impress your audience in any setting.',
+                      style: GoogleFonts.redHatDisplay(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

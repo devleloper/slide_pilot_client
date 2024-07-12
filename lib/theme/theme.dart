@@ -78,6 +78,12 @@ class AppPresets {
     offset: Offset(0, 4),
   );
 
+  final whiteShadow = const BoxShadow(
+    blurRadius: 20,
+    color: Color.fromRGBO(255, 255, 255, 0.6),
+    offset: Offset(0, 4),
+  );
+
   final defaultShadow = const BoxShadow(
     blurRadius: 20,
     color: Color.fromRGBO(0, 0, 0, 0.5),
