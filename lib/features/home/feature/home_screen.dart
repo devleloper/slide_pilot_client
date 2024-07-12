@@ -23,7 +23,6 @@ class _HomePage extends State<HomePage> {
   final GlobalKey _helpButtonKey = GlobalKey();
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
   String _name = "...";
-  bool _isFirstTime = true;
 
   @override
   void initState() {
@@ -64,9 +63,9 @@ class _HomePage extends State<HomePage> {
 
   Future<void> _checkAndShowTutorial() async {
     final prefs = await SharedPreferences.getInstance();
-    _isFirstTime = prefs.getBool('isFirstTime') ?? true;
+    bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
 
-    if (_isFirstTime) {
+    if (isFirstTime) {
       _createTutorial();
       await prefs.setBool('isFirstTime', false);
     }
@@ -83,6 +82,7 @@ class _HomePage extends State<HomePage> {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'Version 1.0.0',
@@ -92,9 +92,7 @@ class _HomePage extends State<HomePage> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
             Text(
               'Developed by Devlet Boltaev in Blism Solutions',
               style: GoogleFonts.redHatDisplay(
@@ -159,12 +157,13 @@ class _HomePage extends State<HomePage> {
           Visibility(
             visible: _bluetoothState.isEnabled,
             child: ListTile(
-                title: Text(
-              "Device Name: $_name",
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 16,
+              title: Text(
+                "Device Name: $_name",
+                style: GoogleFonts.redHatDisplay(
+                  fontSize: 16,
+                ),
               ),
-            )),
+            ),
           ),
           const SizedBox(height: 16),
           Visibility(
@@ -281,7 +280,7 @@ class _HomePage extends State<HomePage> {
           TargetContent(
             align: ContentAlign.bottom,
             builder: (context, controller) => Text(
-              'Read the application documentation for better understanding and experience',
+              'You can always go back and look at the instructions again 😊',
               style: GoogleFonts.redHatDisplay(
                 color: Colors.white,
                 fontSize: 16,

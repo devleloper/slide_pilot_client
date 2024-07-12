@@ -25,7 +25,7 @@ class IntroPage5 extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'You are now ready to start using Slide Pilot and take control of your presentations. Enjoy!',
+              'You are now ready to start using Slide Pilot and take control of your presentations. Enjoy! 😃',
               style: GoogleFonts.redHatDisplay(
                 fontSize: 16,
                 color: Colors.white,

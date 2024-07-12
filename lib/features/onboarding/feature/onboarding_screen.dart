@@ -1,14 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:slide_pilot_client/features/onboarding/intro_pages/intro_page_3.dart';
-import 'package:slide_pilot_client/features/onboarding/intro_pages/intro_page_4.dart';
 import 'package:slide_pilot_client/theme/theme.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../widgets/components/custom_text_button.dart';
 import '../../home/home.dart';
 import '../intro_pages/intro_page_1.dart';
 import '../intro_pages/intro_page_2.dart';
+import '../intro_pages/intro_page_3.dart';
+import '../intro_pages/intro_page_4.dart';
 import '../intro_pages/intro_page_5.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -21,30 +20,6 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   bool onLastPage = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkIfSeen();
-  }
-
-  Future<void> _checkIfSeen() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool seen = prefs.getBool('seen') ?? false;
-
-    if (seen) {
-      _navigateToHome();
-    } else {
-      prefs.setBool('seen', true);
-    }
-  }
-
-  void _navigateToHome() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +54,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 title: onLastPage ? 'Done' : 'Next',
                 onTap: onLastPage
                     ? () {
-                        _navigateToHome();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                        );
                       }
                     : () {
                         _controller.nextPage(
