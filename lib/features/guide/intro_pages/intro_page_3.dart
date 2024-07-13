@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class IntroPage4 extends StatelessWidget {
-  const IntroPage4({super.key});
+class IntroPage3 extends StatelessWidget {
+  const IntroPage3({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +11,11 @@ class IntroPage4 extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       color: theme.primaryColor,
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 32),
             Text(
               'Third: Establishing a connection 🔗',
               style: GoogleFonts.redHatDisplay(

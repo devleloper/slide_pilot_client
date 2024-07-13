@@ -2,10 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:slide_pilot_client/features/onboarding/onboarding.dart';
-import 'package:slide_pilot_client/firebase_options.dart';
+import 'package:slide_pilot_client/features/guide/guide.dart';
+import 'package:slide_pilot_client/models/view/firebase_options.dart';
 import 'features/home/home.dart';
 import 'theme/theme.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,9 +54,13 @@ class SlidePilotApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeData(),
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
       home: FutureBuilder<bool>(
         future: _isFirstTime(),
         builder: (context, snapshot) {

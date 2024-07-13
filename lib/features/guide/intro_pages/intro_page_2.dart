@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:slide_pilot_client/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../widgets/components/custom_text_button.dart';
+import '../../features.dart';
 
-class IntroPage3 extends StatelessWidget {
-  const IntroPage3({super.key});
+class IntroPage2 extends StatelessWidget {
+  const IntroPage2({super.key});
 
   Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
@@ -24,9 +23,11 @@ class IntroPage3 extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       color: theme.primaryColor,
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 32),
             Text(
               'Second: PC setup 🖥',
               style: GoogleFonts.redHatDisplay(
@@ -46,13 +47,11 @@ class IntroPage3 extends StatelessWidget {
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: 16),
-            CustomTextButton(
+            CustomTextGuideButton(
+              icon: CupertinoIcons.arrow_down_circle_fill,
               title: 'Download All in One Archive',
               onTap: () =>
                   _launchURL('https://example.com/all_in_one_archive.zip'),
-              buttonShadow: AppPresets().whiteShadow,
-              buttonColor: Colors.white,
-              textColor: theme.primaryColor,
             ),
             const SizedBox(height: 32),
             Text(
@@ -77,7 +76,7 @@ class IntroPage3 extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Image.asset('assets/guide/server/start_server_1.jpg'),
-                const SizedBox(height: 16),
+                const SizedBox(height: 32),
                 Text(
                   'Step 2: Run the server by clicking on the “Start” button. You should see a message indicating that the server is running and waiting for connections.',
                   style: GoogleFonts.redHatDisplay(

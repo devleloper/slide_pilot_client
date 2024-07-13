@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:convert';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class RemoteControlLogic extends ChangeNotifier {
+  FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
   final BluetoothDevice server;
   static final int clientID = 0;
 
@@ -85,7 +87,20 @@ class RemoteControlLogic extends ChangeNotifier {
 
   void goLeft() => _sendMessage("*#*LEFT*@*");
 
-  void sendPointerCommand() => _sendMessage("*#*CONTROL+CONTROL*@*");
+  void sendSpotlightCommand() {
+    _logSpotlightButtonClick();
+    _sendMessage("*#*SPOTLIGHT*@*");
+  }
+
+  void _logSpotlightButtonClick() {
+    _analytics.logEvent(
+      name: 'spotlight_button_click',
+      parameters: <String, Object>{
+        'button': 'spotlight',
+        'screen': 'remote_control',
+      },
+    );
+  }
 
   void _onDataReceived(Uint8List data) {
     int backspacesCounter = 0;

@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:control_pad_plus/control_pad_plus.dart';
 import '../../../theme/theme.dart';
-import '../../../widgets/components/custom_action_button.dart';
+
 import '../../../widgets/widgets.dart';
 import 'remote_control_logic.dart';
 
@@ -236,44 +236,24 @@ class CustomActionButtonsRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         CustomActionButton(
-          icon:
-              Icon(CupertinoIcons.chevron_back, size: 32, color: Colors.white),
+          icon: const Icon(CupertinoIcons.chevron_back,
+              size: 32, color: Colors.white),
           onTap: () => logic.goLeft(),
         ),
         CustomActionButton(
           icon: SvgPicture.asset(
-            'assets/brand/logo.svg',
+            'assets/brand/logo_outlined.svg',
             width: 42,
             height: 42,
           ),
-          onTap: () => logic.sendPointerCommand(),
+          onTap: () => logic.sendSpotlightCommand(),
         ),
         CustomActionButton(
-          icon: Icon(CupertinoIcons.chevron_forward,
+          icon: const Icon(CupertinoIcons.chevron_forward,
               size: 32, color: Colors.white),
           onTap: () => logic.goRight(),
         ),
       ],
-    );
-  }
-
-  // Disabled
-
-  void showFeatureUnavailableDialog(BuildContext context) {
-    showCupertinoDialog(
-      context: context,
-      builder: (context) => CupertinoAlertDialog(
-        title: const Text("SOON..."),
-        content: const Text("This feature will be available soon."),
-        actions: [
-          CupertinoDialogAction(
-            child: Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      ),
     );
   }
 }
@@ -339,6 +319,43 @@ class TouchArea extends StatelessWidget {
             theme.primaryColor.withOpacity(0.8),
             theme.primaryColor.withOpacity(0.7),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// ActionButton
+
+class CustomActionButton extends StatelessWidget {
+  final Widget icon;
+  final VoidCallback? onTap;
+
+  const CustomActionButton({
+    Key? key,
+    required this.icon,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      height: 100,
+      width: 100,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [AppPresets().neonShadow],
+      ),
+      child: Material(
+        color: theme.primaryColor,
+        shape: const CircleBorder(),
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: onTap,
+          child: Center(
+            child: icon,
+          ),
         ),
       ),
     );

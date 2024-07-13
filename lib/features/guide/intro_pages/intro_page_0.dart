@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class IntroPage1 extends StatelessWidget {
-  const IntroPage1({super.key});
+class IntroPage0 extends StatelessWidget {
+  const IntroPage0({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +84,7 @@ class IntroPage1 extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     const Icon(

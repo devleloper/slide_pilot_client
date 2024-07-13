@@ -47,6 +47,7 @@ class DiscoveryScreen extends StatelessWidget {
         ],
       ),
       body: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: results.length,
         itemBuilder: (BuildContext context, index) {
           BluetoothDiscoveryResult result = results[index];

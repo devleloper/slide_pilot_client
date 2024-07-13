@@ -7,10 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slide_pilot_client/theme/theme.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import '../../../widgets/components/custom_text_button.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import '../../../widgets/widgets.dart';
 import '../../features.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,6 +22,8 @@ class _HomePage extends State<HomePage> {
   final GlobalKey _helpButtonKey = GlobalKey();
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
   String _name = "...";
+  bool _isFirstTime = true;
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -63,12 +64,22 @@ class _HomePage extends State<HomePage> {
 
   Future<void> _checkAndShowTutorial() async {
     final prefs = await SharedPreferences.getInstance();
-    bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+    _isFirstTime = prefs.getBool('isFirstTime') ?? true;
 
-    if (isFirstTime) {
+    if (_isFirstTime) {
       _createTutorial();
       await prefs.setBool('isFirstTime', false);
     }
+  }
+
+  void _logHelpButtonClick() {
+    _analytics.logEvent(
+      name: 'help_button_click',
+      parameters: <String, Object>{
+        'button': 'help',
+        'screen': 'home',
+      },
+    );
   }
 
   @override
@@ -108,7 +119,7 @@ class _HomePage extends State<HomePage> {
         title: Row(
           children: [
             SvgPicture.asset(
-              'assets/brand/logo.svg',
+              'assets/brand/logo_outlined.svg',
               width: 22,
               height: 22,
             ),
@@ -129,7 +140,10 @@ class _HomePage extends State<HomePage> {
             icon: const Icon(
               CupertinoIcons.question_circle_fill,
             ),
-            onPressed: () => _showDocumentationDialog(context),
+            onPressed: () {
+              _logHelpButtonClick();
+              _showDocumentationDialog(context);
+            },
           ),
         ],
       ),
@@ -157,22 +171,18 @@ class _HomePage extends State<HomePage> {
           Visibility(
             visible: _bluetoothState.isEnabled,
             child: ListTile(
-              title: Text(
-                "Device Name: $_name",
-                style: GoogleFonts.redHatDisplay(
-                  fontSize: 16,
-                ),
+                title: Text(
+              "Device Name: $_name",
+              style: GoogleFonts.redHatDisplay(
+                fontSize: 16,
               ),
-            ),
+            )),
           ),
           const SizedBox(height: 16),
           Visibility(
             visible: _bluetoothState.isEnabled,
             child: ListTile(
               title: CustomTextButton(
-                buttonShadow: AppPresets().neonShadow,
-                textColor: Colors.white,
-                buttonColor: Theme.of(context).primaryColor,
                 onTap: _bluetoothState.isEnabled
                     ? () async {
                         final BluetoothDevice? selectedDevice =
@@ -198,56 +208,29 @@ class _HomePage extends State<HomePage> {
             visible: _bluetoothState.isEnabled,
             child: ListTile(
               title: CustomTextButton(
-                buttonShadow: AppPresets().neonShadow,
-                textColor: Colors.white,
-                buttonColor: Theme.of(context).primaryColor,
                 onTap: _bluetoothState.isEnabled
-                    ? () {
-                        _showServerReminderDialog(context);
+                    ? () async {
+                        final BluetoothDevice? selectedDevice =
+                            await Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                          return const SelectBondedDevicePage(
+                              checkAvailability: true);
+                        }));
+
+                        if (selectedDevice != null) {
+                          print(
+                              'Connect -> selected ' + selectedDevice.address);
+                          _startRemoteConnection(context, selectedDevice);
+                        } else {
+                          print('Connect -> no device selected');
+                        }
                       }
                     : null,
-                title: 'Connect to Control PC',
+                title: 'Connect to paired PC to control',
               ),
             ),
           ),
           const SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
-
-  void _showServerReminderDialog(BuildContext context) {
-    showCupertinoDialog(
-      context: context,
-      builder: (context) => CupertinoAlertDialog(
-        title: const Text("Server Reminder"),
-        content: const Text(
-            "Please make sure the Slide Pilot Server is running on your PC."),
-        actions: [
-          CupertinoDialogAction(
-            child: const Text("Cancel"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          CupertinoDialogAction(
-            child: const Text("Proceed"),
-            onPressed: () async {
-              Navigator.of(context).pop();
-              final BluetoothDevice? selectedDevice =
-                  await Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                return const SelectBondedDevicePage(checkAvailability: true);
-              }));
-
-              if (selectedDevice != null) {
-                print('Connect -> selected ' + selectedDevice.address);
-                _startRemoteConnection(context, selectedDevice);
-              } else {
-                print('Connect -> no device selected');
-              }
-            },
-          ),
         ],
       ),
     );
@@ -263,8 +246,8 @@ class _HomePage extends State<HomePage> {
     showCupertinoDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
-        title: const Text("Documentation"),
-        content: const Text("Do you want to open the documentation?"),
+        title: const Text("Guide"),
+        content: const Text("Would you like to read the guide?"),
         actions: [
           CupertinoDialogAction(
             child: const Text("Cancel"),
@@ -276,7 +259,7 @@ class _HomePage extends State<HomePage> {
             child: const Text("Open"),
             onPressed: () {
               Navigator.of(context).pop();
-              _launchURL();
+              _navigateToOnboarding(context);
             },
           ),
         ],
@@ -284,14 +267,12 @@ class _HomePage extends State<HomePage> {
     );
   }
 
-  void _launchURL() async {
-    const url = 'https://devleloper.medium.com/slide-pilot-guide-3853df2f19f9';
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Could not launch $url';
-    }
+  void _navigateToOnboarding(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const OnboardingScreen(),
+      ),
+    );
   }
 
   Future<void> _createTutorial() async {
@@ -304,7 +285,7 @@ class _HomePage extends State<HomePage> {
           TargetContent(
             align: ContentAlign.bottom,
             builder: (context, controller) => Text(
-              'You can always go back and look at the instructions again 😊',
+              'You can always go back and read the guide again 😊',
               style: GoogleFonts.redHatDisplay(
                 color: Colors.white,
                 fontSize: 16,
@@ -323,5 +304,52 @@ class _HomePage extends State<HomePage> {
     Future.delayed(const Duration(milliseconds: 500), () {
       tutorial.show(context: context);
     });
+  }
+}
+
+// CustomTextButton
+
+class CustomTextButton extends StatelessWidget {
+  final String title;
+  final VoidCallback? onTap;
+
+  const CustomTextButton({
+    Key? key,
+    required this.title,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      height: 68,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [AppPresets().neonShadow],
+      ),
+      child: Material(
+        color: theme.primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: InkWell(
+          customBorder: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          onTap: onTap,
+          child: Center(
+            child: Text(
+              title,
+              style: GoogleFonts.redHatDisplay(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

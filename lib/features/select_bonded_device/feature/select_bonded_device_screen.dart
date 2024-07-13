@@ -32,7 +32,7 @@ class SelectBondedDeviceScreen extends StatelessWidget {
         rssi: device.rssi,
         enabled: device.availability == DeviceAvailability.yes,
         onTap: () {
-          Navigator.of(context).pop(device.device);
+          logic.selectDevice(context, device.device);
         },
       );
     }).toList();

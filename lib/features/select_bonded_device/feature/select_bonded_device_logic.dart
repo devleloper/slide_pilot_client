@@ -68,6 +68,10 @@ class SelectBondedDeviceLogic extends ChangeNotifier {
     notifyListeners();
   }
 
+  void selectDevice(BuildContext context, BluetoothDevice device) {
+    Navigator.of(context).pop(device);
+  }
+
   @override
   void dispose() {
     _discoveryStreamSubscription?.cancel();

@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:slide_pilot_client/theme/theme.dart';
-import '../../../widgets/components/custom_text_button.dart';
+import '../../features.dart';
 
-class IntroPage2 extends StatefulWidget {
-  const IntroPage2({super.key});
+class IntroPage1 extends StatefulWidget {
+  const IntroPage1({super.key});
 
   @override
-  _IntroPage2State createState() => _IntroPage2State();
+  _IntroPage1State createState() => _IntroPage1State();
 }
 
-class _IntroPage2State extends State<IntroPage2> {
+class _IntroPage1State extends State<IntroPage1> {
   bool isBluetoothGranted = false;
   bool isBluetoothConnectGranted = false;
   bool isBluetoothScanGranted = false;
@@ -38,9 +38,11 @@ class _IntroPage2State extends State<IntroPage2> {
       padding: const EdgeInsets.all(16),
       color: theme.primaryColor,
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 32),
             Text(
               'First: Setting up an Android device 📱',
               style: GoogleFonts.redHatDisplay(
@@ -60,7 +62,10 @@ class _IntroPage2State extends State<IntroPage2> {
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: 32),
-            CustomTextButton(
+            CustomTextGuideButton(
+              icon: isBluetoothGranted
+                  ? CupertinoIcons.checkmark_alt_circle_fill
+                  : CupertinoIcons.bluetooth,
               title: isBluetoothGranted
                   ? 'Bluetooth Permission Granted'
                   : 'Grant Bluetooth Permission',
@@ -69,12 +74,12 @@ class _IntroPage2State extends State<IntroPage2> {
                   isBluetoothGranted = true;
                 });
               }),
-              buttonShadow: AppPresets().whiteShadow,
-              buttonColor: Colors.white,
-              textColor: theme.primaryColor,
             ),
             const SizedBox(height: 16),
-            CustomTextButton(
+            CustomTextGuideButton(
+              icon: isBluetoothConnectGranted
+                  ? CupertinoIcons.checkmark_alt_circle_fill
+                  : CupertinoIcons.bluetooth,
               title: isBluetoothConnectGranted
                   ? 'Bluetooth Connect Permission Granted'
                   : 'Grant Bluetooth Connect Permission',
@@ -83,12 +88,12 @@ class _IntroPage2State extends State<IntroPage2> {
                   isBluetoothConnectGranted = true;
                 });
               }),
-              buttonShadow: AppPresets().whiteShadow,
-              buttonColor: Colors.white,
-              textColor: theme.primaryColor,
             ),
             const SizedBox(height: 16),
-            CustomTextButton(
+            CustomTextGuideButton(
+              icon: isBluetoothScanGranted
+                  ? CupertinoIcons.checkmark_alt_circle_fill
+                  : CupertinoIcons.bluetooth,
               title: isBluetoothScanGranted
                   ? 'Bluetooth Scan Permission Granted'
                   : 'Grant Bluetooth Scan Permission',
@@ -97,12 +102,12 @@ class _IntroPage2State extends State<IntroPage2> {
                   isBluetoothScanGranted = true;
                 });
               }),
-              buttonShadow: AppPresets().whiteShadow,
-              buttonColor: Colors.white,
-              textColor: theme.primaryColor,
             ),
             const SizedBox(height: 16),
-            CustomTextButton(
+            CustomTextGuideButton(
+              icon: isLocationGranted
+                  ? CupertinoIcons.checkmark_alt_circle_fill
+                  : CupertinoIcons.location_solid,
               title: isLocationGranted
                   ? 'Location Permission Granted'
                   : 'Grant Coarse Location Permission',
@@ -111,9 +116,6 @@ class _IntroPage2State extends State<IntroPage2> {
                   isLocationGranted = true;
                 });
               }),
-              buttonShadow: AppPresets().whiteShadow,
-              buttonColor: Colors.white,
-              textColor: theme.primaryColor,
             ),
           ],
         ),
