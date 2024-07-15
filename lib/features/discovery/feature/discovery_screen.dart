@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../../widgets/widgets.dart';
 import 'discovery_logic.dart';
 
-// Entry point for the discovery page, initiates DiscoveryLogic.
 class DiscoveryPage extends StatelessWidget {
   final bool start;
 
@@ -15,27 +14,24 @@ class DiscoveryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => DiscoveryLogic(start),
-      child: const DiscoveryScreen(),
+      child: DiscoveryScreen(),
     );
   }
 }
 
-// UI for displaying discovered Bluetooth devices.
 class DiscoveryScreen extends StatelessWidget {
-  const DiscoveryScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
-    final logic = Provider.of<DiscoveryLogic>(context);
-    final results = logic.results;
+    final discoveryLogic = Provider.of<DiscoveryLogic>(context);
+    final results = discoveryLogic.results;
 
     return Scaffold(
       appBar: AppBar(
-        title: logic.isDiscovering
+        title: discoveryLogic.isDiscovering
             ? const Text('Discovering devices')
             : const Text('Discovered devices'),
         actions: <Widget>[
-          logic.isDiscovering
+          discoveryLogic.isDiscovering
               ? FittedBox(
                   child: Container(
                       margin: const EdgeInsets.all(16.0),
@@ -46,19 +42,18 @@ class DiscoveryScreen extends StatelessWidget {
                   icon: const Icon(
                     CupertinoIcons.refresh,
                   ),
-                  onPressed: logic.restartDiscovery,
+                  onPressed: discoveryLogic.restartDiscovery,
                 )
         ],
       ),
       body: ListView.builder(
-        physics: const BouncingScrollPhysics(),
         itemCount: results.length,
         itemBuilder: (BuildContext context, index) {
           BluetoothDiscoveryResult result = results[index];
           return BluetoothDeviceListEntry(
             device: result.device,
             rssi: result.rssi,
-            onTap: () => logic.handleDeviceTap(context, result),
+            onTap: () => discoveryLogic.handleDeviceTap(context, result),
           );
         },
       ),

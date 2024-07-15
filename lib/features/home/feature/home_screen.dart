@@ -108,7 +108,6 @@ class _HomePage extends State<HomePage> {
                 style: TextStyle(
                   fontFamily: 'RedHatDisplaySemiBold',
                   fontSize: 12,
-                  letterSpacing: 1,
                 ),
               ),
               SizedBox(height: 16),
@@ -117,7 +116,6 @@ class _HomePage extends State<HomePage> {
                 style: TextStyle(
                   fontFamily: 'RedHatDisplaySemiBold',
                   fontSize: 12,
-                  letterSpacing: 1,
                 ),
               ),
             ],
