@@ -96,11 +96,11 @@ class CustomTextGuideButton extends StatelessWidget {
   final IconData icon;
 
   const CustomTextGuideButton({
-    Key? key,
+    super.key,
     required this.title,
     this.onTap,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -129,10 +129,14 @@ class CustomTextGuideButton extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: theme.textTheme.bodyMedium
-                      ?.copyWith(color: theme.primaryColor),
+                  style: TextStyle(
+                    fontFamily: 'RedHatDisplayRegular',
+                    fontSize: 16,
+                    color: theme.primaryColor,
+                    letterSpacing: 1,
+                  ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 4),
                 Icon(
                   icon,
                   color: theme.primaryColor,

@@ -15,25 +15,27 @@ class DiscoveryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => DiscoveryLogic(start),
-      child: DiscoveryScreen(),
+      child: const DiscoveryScreen(),
     );
   }
 }
 
 // UI for displaying discovered Bluetooth devices.
 class DiscoveryScreen extends StatelessWidget {
+  const DiscoveryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final discoveryLogic = Provider.of<DiscoveryLogic>(context);
-    final results = discoveryLogic.results;
+    final logic = Provider.of<DiscoveryLogic>(context);
+    final results = logic.results;
 
     return Scaffold(
       appBar: AppBar(
-        title: discoveryLogic.isDiscovering
+        title: logic.isDiscovering
             ? const Text('Discovering devices')
             : const Text('Discovered devices'),
         actions: <Widget>[
-          discoveryLogic.isDiscovering
+          logic.isDiscovering
               ? FittedBox(
                   child: Container(
                       margin: const EdgeInsets.all(16.0),
@@ -44,7 +46,7 @@ class DiscoveryScreen extends StatelessWidget {
                   icon: const Icon(
                     CupertinoIcons.refresh,
                   ),
-                  onPressed: discoveryLogic.restartDiscovery,
+                  onPressed: logic.restartDiscovery,
                 )
         ],
       ),
@@ -56,7 +58,7 @@ class DiscoveryScreen extends StatelessWidget {
           return BluetoothDeviceListEntry(
             device: result.device,
             rssi: result.rssi,
-            onTap: () => discoveryLogic.handleDeviceTap(context, result),
+            onTap: () => logic.handleDeviceTap(context, result),
           );
         },
       ),

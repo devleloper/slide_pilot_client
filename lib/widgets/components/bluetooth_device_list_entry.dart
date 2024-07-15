@@ -4,28 +4,32 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class BluetoothDeviceListEntry extends ListTile {
   BluetoothDeviceListEntry({
+    super.key,
     required BluetoothDevice device,
     final int? rssi,
-    GestureTapCallback? onTap,
-    GestureLongPressCallback? onLongPress,
-    bool enabled = true,
+    super.onTap,
+    super.onLongPress,
+    super.enabled,
   }) : super(
-          onTap: onTap,
-          onLongPress: onLongPress,
-          enabled: enabled,
           leading: const Icon(
             CupertinoIcons.device_desktop,
           ),
           title: Text(
             device.name ?? "Unknown device",
             style: const TextStyle(
-              fontFamily: 'RedHatDisplay',
-              fontWeight: FontWeight.w600,
+              fontFamily: 'RedHatDisplayRegular',
               fontSize: 16,
               letterSpacing: 1,
             ),
           ),
-          subtitle: Text(device.address.toString()),
+          subtitle: Text(
+            device.address.toString(),
+            style: const TextStyle(
+              fontFamily: 'RedHatDisplayRegular',
+              fontSize: 16,
+              letterSpacing: 1,
+            ),
+          ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -72,8 +76,7 @@ class BluetoothDeviceListEntry extends ListTile {
                         const Text(
                           'dBm',
                           style: TextStyle(
-                            fontFamily: 'RedHatDisplay',
-                            fontWeight: FontWeight.w600,
+                            fontFamily: 'RedHatDisplayRegular',
                             fontSize: 16,
                             letterSpacing: 1,
                           ),
@@ -82,6 +85,7 @@ class BluetoothDeviceListEntry extends ListTile {
                     ),
                   ),
                 ),
+              const SizedBox(width: 4),
               if (device.isBonded)
                 const Icon(
                   CupertinoIcons.link,

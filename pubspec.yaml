@@ -92,9 +92,14 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: RedHatDisplay
+    - family: RedHatDisplayRegular
       fonts:
-        - asset: fonts/RedHatDisplay.ttf
+        - asset: fonts/RedHatDisplay-Regular.ttf
+    - family: RedHatDisplaySemiBold
+      fonts:
+        - asset: fonts/RedHatDisplay-SemiBold.ttf
+
+          
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

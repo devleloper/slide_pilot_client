@@ -8,38 +8,36 @@ ThemeData themeData() {
     textTheme: const TextTheme(
       // Headline Medium
       headlineMedium: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 24.0,
-          letterSpacing: 1,
-          fontWeight: FontWeight.w600),
+        fontFamily: 'RedHatDisplaySemiBold',
+        fontSize: 24.0,
+        letterSpacing: 1,
+      ),
 
       // BodyMedium
       bodyMedium: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 16.0,
-          letterSpacing: 1,
-          fontWeight: FontWeight.w600),
+        fontFamily: 'RedHatDisplayRegular',
+        fontSize: 16.0,
+        letterSpacing: 1,
+      ),
       // Body Small
       bodySmall: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 12.0,
-          letterSpacing: 1,
-          fontWeight: FontWeight.w600),
+        fontFamily: 'RedHatDisplaySemiBold',
+        fontSize: 12.0,
+        letterSpacing: 1,
+      ),
     ),
     primaryColor: appColors.primaryColor,
     appBarTheme: AppBarTheme(
       surfaceTintColor: Colors.transparent,
       toolbarTextStyle: const TextStyle(
-        fontFamily: 'RedHatDisplay',
+        fontFamily: 'RedHatDisplaySemiBold',
         fontSize: 16,
-        fontWeight: FontWeight.w600,
         letterSpacing: 1,
         color: Colors.white,
       ),
       titleTextStyle: const TextStyle(
-        fontFamily: 'RedHatDisplay',
+        fontFamily: 'RedHatDisplaySemiBold',
         fontSize: 16,
-        fontWeight: FontWeight.w600,
         letterSpacing: 1,
         color: Colors.white,
       ),
@@ -56,20 +54,20 @@ ThemeData themeData() {
       style: TextButton.styleFrom(
         foregroundColor: Colors.white,
         backgroundColor: appColors.primaryColor,
-        textStyle: const TextStyle(fontFamily: 'RedHatDisplay'),
+        textStyle: const TextStyle(fontFamily: 'RedHatDisplaySemiRegular'),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: appColors.primaryColor,
-        textStyle: const TextStyle(fontFamily: 'RedHatDisplay'),
+        textStyle: const TextStyle(fontFamily: 'RedHatDisplaySemiRegular'),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: appColors.primaryColor,
         side: BorderSide(color: appColors.primaryColor),
-        textStyle: const TextStyle(fontFamily: 'RedHatDisplay'),
+        textStyle: const TextStyle(fontFamily: 'RedHatDisplaySemiRegular'),
       ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(

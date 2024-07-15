@@ -97,26 +97,31 @@ class _HomePage extends State<HomePage> {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Version 1.0.0',
-              style: theme.textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.black.withOpacity(0.5),
+      bottomNavigationBar: const BottomAppBar(
+        child: Opacity(
+          opacity: 0.50,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Version 1.0.0',
+                style: TextStyle(
+                  fontFamily: 'RedHatDisplaySemiBold',
+                  fontSize: 12,
+                  letterSpacing: 1,
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Developed by Devlet Boltaev in Blism Solutions',
-              style: theme.textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.black.withOpacity(0.5),
+              SizedBox(height: 16),
+              Text(
+                'Developed by Devlet Boltaev in Blism Solutions',
+                style: TextStyle(
+                  fontFamily: 'RedHatDisplaySemiBold',
+                  fontSize: 12,
+                  letterSpacing: 1,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       appBar: AppBar(
@@ -131,10 +136,10 @@ class _HomePage extends State<HomePage> {
             const Text(
               'Slide Pilot',
               style: TextStyle(
-                  fontFamily: 'RedHatDisplay',
-                  fontSize: 18,
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.w600),
+                fontFamily: 'RedHatDisplaySemiBold',
+                fontSize: 18,
+                letterSpacing: 1,
+              ),
             ),
           ],
         ),
@@ -291,12 +296,14 @@ class _HomePage extends State<HomePage> {
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
-            builder: (context, controller) => Text(
+            builder: (context, controller) => const Text(
               'You can always go back and read the guide again 😊',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(color: Colors.white),
+              style: TextStyle(
+                fontFamily: 'RedHatDisplaySemiBold',
+                fontSize: 16,
+                color: Colors.white,
+                letterSpacing: 1,
+              ),
             ),
           ),
         ],
@@ -319,10 +326,10 @@ class CustomTextButton extends StatelessWidget {
   final VoidCallback? onTap;
 
   const CustomTextButton({
-    Key? key,
+    super.key,
     required this.title,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -347,7 +354,12 @@ class CustomTextButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
+              style: const TextStyle(
+                fontFamily: 'RedHatDisplayRegular',
+                fontSize: 16,
+                color: Colors.white,
+                letterSpacing: 1,
+              ),
             ),
           ),
         ),
