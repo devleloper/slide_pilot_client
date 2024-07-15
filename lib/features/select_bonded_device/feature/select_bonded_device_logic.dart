@@ -2,12 +2,14 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
+// Enum to represent device availability status
 enum DeviceAvailability {
   no,
   maybe,
   yes,
 }
 
+// Class to represent a device with its availability status and RSSI
 class DeviceWithAvailability {
   BluetoothDevice device;
   DeviceAvailability availability;
@@ -21,12 +23,14 @@ class SelectBondedDeviceLogic extends ChangeNotifier {
   StreamSubscription<BluetoothDiscoveryResult>? _discoveryStreamSubscription;
   bool isDiscovering = false;
 
+  // Constructor to initialize and start device discovery if needed
   SelectBondedDeviceLogic(bool checkAvailability) {
     isDiscovering = checkAvailability;
     if (isDiscovering) {
       _startDiscovery();
     }
 
+    // Get bonded devices and update their availability status
     FlutterBluetoothSerial.instance.getBondedDevices().then((bondedDevices) {
       devices = bondedDevices
           .map((device) => DeviceWithAvailability(
@@ -39,6 +43,7 @@ class SelectBondedDeviceLogic extends ChangeNotifier {
     });
   }
 
+  // Start Bluetooth device discovery
   void _startDiscovery() {
     _discoveryStreamSubscription =
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
@@ -57,17 +62,20 @@ class SelectBondedDeviceLogic extends ChangeNotifier {
     });
   }
 
+  // Restart device discovery
   void restartDiscovery() {
     isDiscovering = true;
     notifyListeners();
     _startDiscovery();
   }
 
+  // Cancel ongoing device discovery
   void cancelDiscovery() {
     _discoveryStreamSubscription?.cancel();
     notifyListeners();
   }
 
+  // Handle device selection
   void selectDevice(BuildContext context, BluetoothDevice device) {
     Navigator.of(context).pop(device);
   }

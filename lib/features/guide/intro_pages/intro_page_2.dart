@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../features.dart';
+import '../feature/onboarding_screen.dart';
 
 class IntroPage2 extends StatelessWidget {
   const IntroPage2({super.key});
 
+  // Function to launch URLs
   Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
@@ -30,20 +30,14 @@ class IntroPage2 extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               'Second: PC setup 🖥',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 24,
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+              style:
+                  theme.textTheme.headlineMedium?.copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
               'To ensure the proper functioning of Slide Pilot, please install the following software on your PC:',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 16,
-                color: Colors.white,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: 16),
@@ -56,11 +50,8 @@ class IntroPage2 extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               'Instructions to launch the server:',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+              style:
+                  theme.textTheme.headlineMedium?.copyWith(color: Colors.white),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: 16),
@@ -68,10 +59,8 @@ class IntroPage2 extends StatelessWidget {
               children: [
                 Text(
                   'Step 1: After successful installation of all programs, start the server (slide_pilot_server.jar)',
-                  style: GoogleFonts.redHatDisplay(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
+                  style:
+                      theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 16),
@@ -79,10 +68,8 @@ class IntroPage2 extends StatelessWidget {
                 const SizedBox(height: 32),
                 Text(
                   'Step 2: Run the server by clicking on the “Start” button. You should see a message indicating that the server is running and waiting for connections.',
-                  style: GoogleFonts.redHatDisplay(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
+                  style:
+                      theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 16),

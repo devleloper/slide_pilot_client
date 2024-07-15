@@ -3,11 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+// DiscoveryLogic class handles the logic for Bluetooth device discovery.
 class DiscoveryLogic extends ChangeNotifier {
   StreamSubscription<BluetoothDiscoveryResult>? _streamSubscription;
   List<BluetoothDiscoveryResult> results = <BluetoothDiscoveryResult>[];
   bool isDiscovering = false;
 
+  // Constructor to initialize discovery state.
   DiscoveryLogic(bool start) {
     isDiscovering = start;
     if (isDiscovering) {
@@ -15,6 +17,7 @@ class DiscoveryLogic extends ChangeNotifier {
     }
   }
 
+  // Restart discovery with permission check.
   Future<void> _restartDiscovery() async {
     final status = await Permission.bluetoothScan.status;
     if (status.isGranted) {
@@ -27,6 +30,7 @@ class DiscoveryLogic extends ChangeNotifier {
     }
   }
 
+  // Start Bluetooth device discovery.
   void _startDiscovery() {
     _streamSubscription =
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
@@ -40,6 +44,7 @@ class DiscoveryLogic extends ChangeNotifier {
     });
   }
 
+  // Cancel ongoing discovery.
   void cancelDiscovery() {
     _streamSubscription?.cancel();
     notifyListeners();
@@ -51,6 +56,7 @@ class DiscoveryLogic extends ChangeNotifier {
     super.dispose();
   }
 
+  // Handle tap event on a discovered device.
   Future<void> handleDeviceTap(
       BuildContext context, BluetoothDiscoveryResult result) async {
     bool? bonded = false;
@@ -117,6 +123,7 @@ class DiscoveryLogic extends ChangeNotifier {
     }
   }
 
+  // Public method to restart discovery.
   void restartDiscovery() {
     _restartDiscovery();
   }

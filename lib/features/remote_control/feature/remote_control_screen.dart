@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:control_pad_plus/control_pad_plus.dart';
 import '../../../theme/theme.dart';
@@ -29,7 +28,7 @@ class RemoteControlScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logic = Provider.of<RemoteControlLogic>(context);
-    ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -42,9 +41,7 @@ class RemoteControlScreen extends StatelessWidget {
             onPressed: () => logic.close(),
           ),
           IconButton(
-            icon: const Icon(
-              CupertinoIcons.refresh,
-            ),
+            icon: const Icon(CupertinoIcons.refresh),
             onPressed: () => logic.connectToBluetooth(),
           ),
         ],
@@ -84,9 +81,7 @@ class RemoteControlScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: theme.primaryColor,
-                        boxShadow: [
-                          AppPresets().neonShadow,
-                        ],
+                        boxShadow: [AppPresets().neonShadow],
                       ),
                       child: Stack(
                         children: [
@@ -97,22 +92,19 @@ class RemoteControlScreen extends StatelessWidget {
                                 const Opacity(
                                   opacity: 0.50,
                                   child: Icon(
-                                    color: Colors.white,
                                     CupertinoIcons.hand_draw,
                                     size: 50,
+                                    color: Colors.white,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                                 Opacity(
                                   opacity: 0.50,
                                   child: Text(
                                     'Touchpad',
-                                    style: GoogleFonts.redHatDisplay(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
+                                    style: theme.textTheme.bodyMedium?.copyWith(
                                       color: Colors.white,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
@@ -151,34 +143,42 @@ class CustomScrollActionsRow extends StatelessWidget {
           CustomScrollActionButton(
             icon: CupertinoIcons.chevron_up_circle,
             tooltip: 'Scroll up',
-            onPressed: () => logic.scroll(DragUpdateDetails(
-              delta: const Offset(0.0, -1.0),
-              globalPosition: const Offset(0.0, 0.0),
-            )),
+            onPressed: () => logic.scroll(
+              DragUpdateDetails(
+                delta: const Offset(0.0, -1.0),
+                globalPosition: const Offset(0.0, 0.0),
+              ),
+            ),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.chevron_down_circle,
             tooltip: 'Scroll down',
-            onPressed: () => logic.scroll(DragUpdateDetails(
-              delta: const Offset(0.0, 1.0),
-              globalPosition: const Offset(0.0, 0.0),
-            )),
+            onPressed: () => logic.scroll(
+              DragUpdateDetails(
+                delta: const Offset(0.0, 1.0),
+                globalPosition: const Offset(0.0, 0.0),
+              ),
+            ),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.zoom_in,
             tooltip: 'Zoom in',
-            onPressed: () => logic.zoom(DragUpdateDetails(
-              delta: const Offset(0.0, -1.0),
-              globalPosition: const Offset(0.0, 0.0),
-            )),
+            onPressed: () => logic.zoom(
+              DragUpdateDetails(
+                delta: const Offset(0.0, -1.0),
+                globalPosition: const Offset(0.0, 0.0),
+              ),
+            ),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.zoom_out,
             tooltip: 'Zoom out',
-            onPressed: () => logic.zoom(DragUpdateDetails(
-              delta: const Offset(0.0, 1.0),
-              globalPosition: const Offset(0.0, 0.0),
-            )),
+            onPressed: () => logic.zoom(
+              DragUpdateDetails(
+                delta: const Offset(0.0, 1.0),
+                globalPosition: const Offset(0.0, 0.0),
+              ),
+            ),
           ),
           CustomScrollActionButton(
             icon: CupertinoIcons.flag_fill,
@@ -303,7 +303,7 @@ class TouchArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
     return Container(
       width: MediaQuery.of(context).size.width * (4 / 6) - 16,
       height: MediaQuery.of(context).size.height - 40,

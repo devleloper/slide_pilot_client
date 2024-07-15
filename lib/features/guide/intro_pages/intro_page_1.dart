@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:slide_pilot_client/theme/theme.dart';
-import '../../features.dart';
+import '../feature/onboarding_screen.dart';
 
 class IntroPage1 extends StatefulWidget {
   const IntroPage1({super.key});
@@ -18,6 +16,7 @@ class _IntroPage1State extends State<IntroPage1> {
   bool isBluetoothScanGranted = false;
   bool isLocationGranted = false;
 
+  // Request permission and update state when granted
   Future<void> _requestPermission(
       Permission permission, Function onGranted) async {
     final status = await permission.request();
@@ -45,20 +44,14 @@ class _IntroPage1State extends State<IntroPage1> {
             const SizedBox(height: 32),
             Text(
               'First: Setting up an Android device 📱',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 24,
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+              style:
+                  theme.textTheme.headlineMedium?.copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
               'To ensure the proper functioning of the Slide Pilot app, please grant the necessary permissions listed below. This will allow the app to seamlessly connect and control your presentations.',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 16,
-                color: Colors.white,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: 32),

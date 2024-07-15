@@ -6,58 +6,25 @@ ThemeData themeData() {
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
     textTheme: const TextTheme(
-      displayLarge: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 96.0,
-          fontWeight: FontWeight.w300),
-      displayMedium: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 60.0,
-          fontWeight: FontWeight.w300),
-      displaySmall: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 48.0,
-          fontWeight: FontWeight.w400),
+      // Headline Medium
       headlineMedium: TextStyle(
           fontFamily: 'RedHatDisplay',
-          fontSize: 34.0,
-          fontWeight: FontWeight.w400),
-      headlineSmall: TextStyle(
-          fontFamily: 'RedHatDisplay',
           fontSize: 24.0,
-          fontWeight: FontWeight.w400),
-      titleLarge: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 20.0,
-          fontWeight: FontWeight.w500),
-      titleMedium: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 16.0,
-          fontWeight: FontWeight.w400),
-      titleSmall: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 14.0,
-          fontWeight: FontWeight.w500),
-      bodyLarge: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 16.0,
-          fontWeight: FontWeight.w400),
+          letterSpacing: 1,
+          fontWeight: FontWeight.w600),
+
+      // BodyMedium
       bodyMedium: TextStyle(
           fontFamily: 'RedHatDisplay',
-          fontSize: 14.0,
-          fontWeight: FontWeight.w400),
-      labelLarge: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 14.0,
-          fontWeight: FontWeight.w500),
+          fontSize: 16.0,
+          letterSpacing: 1,
+          fontWeight: FontWeight.w600),
+      // Body Small
       bodySmall: TextStyle(
           fontFamily: 'RedHatDisplay',
           fontSize: 12.0,
-          fontWeight: FontWeight.w400),
-      labelSmall: TextStyle(
-          fontFamily: 'RedHatDisplay',
-          fontSize: 10.0,
-          fontWeight: FontWeight.w400),
+          letterSpacing: 1,
+          fontWeight: FontWeight.w600),
     ),
     primaryColor: appColors.primaryColor,
     appBarTheme: AppBarTheme(
@@ -66,12 +33,14 @@ ThemeData themeData() {
         fontFamily: 'RedHatDisplay',
         fontSize: 16,
         fontWeight: FontWeight.w600,
+        letterSpacing: 1,
         color: Colors.white,
       ),
       titleTextStyle: const TextStyle(
         fontFamily: 'RedHatDisplay',
         fontSize: 16,
         fontWeight: FontWeight.w600,
+        letterSpacing: 1,
         color: Colors.white,
       ),
       color: appColors.primaryColor,
@@ -87,20 +56,20 @@ ThemeData themeData() {
       style: TextButton.styleFrom(
         foregroundColor: Colors.white,
         backgroundColor: appColors.primaryColor,
-        textStyle: TextStyle(fontFamily: 'RedHatDisplay'),
+        textStyle: const TextStyle(fontFamily: 'RedHatDisplay'),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: appColors.primaryColor,
-        textStyle: TextStyle(fontFamily: 'RedHatDisplay'),
+        textStyle: const TextStyle(fontFamily: 'RedHatDisplay'),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: appColors.primaryColor,
         side: BorderSide(color: appColors.primaryColor),
-        textStyle: TextStyle(fontFamily: 'RedHatDisplay'),
+        textStyle: const TextStyle(fontFamily: 'RedHatDisplay'),
       ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(

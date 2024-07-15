@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:slide_pilot_client/features/home/home.dart';
 import 'package:slide_pilot_client/theme/theme.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -24,6 +23,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -89,8 +89,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 }
 
-// CustomTextButton
-
+// CustomTextGuideButton widget for navigation
 class CustomTextGuideButton extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
@@ -130,10 +129,8 @@ class CustomTextGuideButton extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.redHatDisplay(
-                    fontSize: 16,
-                    color: theme.primaryColor,
-                  ),
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(color: theme.primaryColor),
                 ),
                 const SizedBox(width: 16),
                 Icon(

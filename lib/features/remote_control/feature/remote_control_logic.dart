@@ -39,22 +39,27 @@ class RemoteControlLogic extends ChangeNotifier {
     _initialize();
   }
 
+  // Initialize logic for gyroscope and connect to Bluetooth
   void _initialize() {
+    // Listen to accelerometer events for gyroscope control
     accelerometerEvents.listen((event) {
       if (isGyroOn) {
         _sendMessage('*#*Offset(${event.x * -1}, ${event.y * -1})*@*');
       }
     });
 
+    // Connect to Bluetooth
     connectToBluetooth();
   }
 
+  // Connect to the Bluetooth device
   Future<void> connectToBluetooth() async {
     _bluetoothConnection = await BluetoothConnection.toAddress(server.address);
 
     isConnecting = false;
     notifyListeners();
 
+    // Listen to data received via Bluetooth
     _streamSubscription = _bluetoothConnection!.input?.listen(_onDataReceived);
 
     _streamSubscription!.onDone(() {
@@ -70,6 +75,7 @@ class RemoteControlLogic extends ChangeNotifier {
     super.dispose();
   }
 
+  // Close the Bluetooth connection
   void close() {
     _streamSubscription = null;
     _bluetoothConnection?.finish();
@@ -77,6 +83,7 @@ class RemoteControlLogic extends ChangeNotifier {
     print('We are disconnecting locally!');
   }
 
+  // Presentation control commands
   void present() => _sendMessage("*#*F5*@*");
 
   void exit() => _sendMessage("*#*esc*@*");
@@ -87,11 +94,13 @@ class RemoteControlLogic extends ChangeNotifier {
 
   void goLeft() => _sendMessage("*#*LEFT*@*");
 
+  // Send spotlight command with analytics logging
   void sendSpotlightCommand() {
     _logSpotlightButtonClick();
     _sendMessage("*#*SPOTLIGHT*@*");
   }
 
+  // Log spotlight button click event to Firebase Analytics
   void _logSpotlightButtonClick() {
     _analytics.logEvent(
       name: 'spotlight_button_click',
@@ -102,6 +111,7 @@ class RemoteControlLogic extends ChangeNotifier {
     );
   }
 
+  // Handle data received from Bluetooth
   void _onDataReceived(Uint8List data) {
     int backspacesCounter = 0;
     data.forEach((byte) {
@@ -146,6 +156,7 @@ class RemoteControlLogic extends ChangeNotifier {
     }
   }
 
+  // Send a message to the Bluetooth device
   void _sendMessage(String text) {
     if (text.isNotEmpty) {
       text = text.trim();
@@ -156,22 +167,27 @@ class RemoteControlLogic extends ChangeNotifier {
     }
   }
 
+  // Handle joystick direction changes
   void directionChanged(double degrees, double distance) {
     _sendMessage("*#*JOYSTICK${degrees.toString()} ${distance.toString()}*@*");
   }
 
+  // Send left click mouse command
   void leftClickMouse() {
     _sendMessage("*#*LC*@*");
   }
 
+  // Handle scroll events
   void scroll(DragUpdateDetails dragUpdate) {
     _sendMessage("*#*SCROLL${dragUpdate.delta.dy.toString()}*@*");
   }
 
+  // Handle zoom events
   void zoom(DragUpdateDetails dragUpdate) {
     _sendMessage("*#*ZOOM${dragUpdate.delta.dy.toString()}*@*");
   }
 
+  // Handle scaling and panning events
   void onScale(ScaleUpdateDetails dragUpdate, BuildContext context) {
     condition = false;
     notifyListeners();
@@ -199,7 +215,7 @@ class RemoteControlLogic extends ChangeNotifier {
     dx = (dragUpdate.focalPoint.dx - halfWidth) / halfWidth;
     dy = (dragUpdate.focalPoint.dy - halfHeight) / halfHeight;
     dragEnabled = leftClick;
-    // Here we convert Offset to string properly
+    // Convert Offset to string properly
     String offsetString =
         '(${dragUpdate.focalPoint.dx - prevFocalPoint!.dx}, ${dragUpdate.focalPoint.dy - prevFocalPoint!.dy})';
     _sendMessage("*#*${(leftClick ? 'DRAG' : 'Offset')}$offsetString*@*");
@@ -208,6 +224,7 @@ class RemoteControlLogic extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Handle end of scaling and panning
   void onScaleEnd() {
     _sendMessage(dragEnabled ? "*#*DRAGENDED*@*" : "");
     dragEnabled = false;
@@ -220,24 +237,28 @@ class RemoteControlLogic extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Send typed string to Bluetooth device
   void sendStringToType(String text) {
     _sendMessage("*#*TYPE$text*@*");
   }
 
+  // Control accelerometer state
   void accelerometerControl(bool isOn) {
     isGyroOn = isOn;
     notifyListeners();
   }
 
-  // Methods for touchpad functionality
+  // Handle touchpad tap up event
   void handleTapUp(TapUpDetails details) {
     _sendMessage("*#*LC*@*");
   }
 
+  // Handle touchpad double tap event
   void handleDoubleTap() {
     _sendMessage("*#*RC*@*");
   }
 
+  // Handle touchpad pan update event
   void handlePanUpdate(DragUpdateDetails details) {
     int dx = details.delta.dx.round();
     int dy = details.delta.dy.round();
@@ -245,6 +266,7 @@ class RemoteControlLogic extends ChangeNotifier {
   }
 }
 
+// Message class to represent messages sent and received
 class Message {
   final int whom;
   final String text;

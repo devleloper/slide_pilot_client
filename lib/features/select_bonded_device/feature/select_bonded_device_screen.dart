@@ -26,6 +26,7 @@ class SelectBondedDeviceScreen extends StatelessWidget {
     final logic = Provider.of<SelectBondedDeviceLogic>(context);
     final devices = logic.devices;
 
+    // Create a list of BluetoothDeviceListEntry widgets from the devices list
     List<BluetoothDeviceListEntry> list = devices.map((device) {
       return BluetoothDeviceListEntry(
         device: device.device,

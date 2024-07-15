@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slide_pilot_client/theme/theme.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
@@ -30,6 +29,7 @@ class _HomePage extends State<HomePage> {
     super.initState();
     _checkAndShowTutorial();
 
+    // Get the current Bluetooth state and update _bluetoothState variable
     FlutterBluetoothSerial.instance.state.then(
       (state) {
         setState(() {
@@ -38,21 +38,24 @@ class _HomePage extends State<HomePage> {
       },
     );
 
+    // Check if Bluetooth is enabled, keep checking until it is enabled
     Future.doWhile(() async {
       final isEnabled = await FlutterBluetoothSerial.instance.isEnabled;
       if (isEnabled == true) {
-        return false;
+        return false; // Exit loop if Bluetooth is enabled
       }
       await Future.delayed(const Duration(milliseconds: 0xDD));
-      return true;
+      return true; // Continue loop if Bluetooth is not enabled
     }).then((_) {});
 
+    // Get the Bluetooth device name and update _name variable
     FlutterBluetoothSerial.instance.name.then((name) {
       setState(() {
         _name = name ?? "...";
       });
     });
 
+    // Subscribe to Bluetooth state changes and update _bluetoothState variable
     FlutterBluetoothSerial.instance
         .onStateChanged()
         .listen((BluetoothState state) {
@@ -62,6 +65,7 @@ class _HomePage extends State<HomePage> {
     });
   }
 
+  // Check if the tutorial needs to be shown, and show it if necessary
   Future<void> _checkAndShowTutorial() async {
     final prefs = await SharedPreferences.getInstance();
     _isFirstTime = prefs.getBool('isFirstTime') ?? true;
@@ -72,6 +76,7 @@ class _HomePage extends State<HomePage> {
     }
   }
 
+  // Log help button click event
   void _logHelpButtonClick() {
     _analytics.logEvent(
       name: 'help_button_click',
@@ -90,6 +95,7 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         child: Column(
@@ -97,19 +103,17 @@ class _HomePage extends State<HomePage> {
           children: [
             Text(
               'Version 1.0.0',
-              style: GoogleFonts.redHatDisplay(
+              style: theme.textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.bold,
                 color: Colors.black.withOpacity(0.5),
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 16),
             Text(
               'Developed by Devlet Boltaev in Blism Solutions',
-              style: GoogleFonts.redHatDisplay(
+              style: theme.textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.bold,
                 color: Colors.black.withOpacity(0.5),
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
               ),
             ),
           ],
@@ -124,13 +128,13 @@ class _HomePage extends State<HomePage> {
               height: 22,
             ),
             const SizedBox(width: 16),
-            Text(
+            const Text(
               'Slide Pilot',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
+              style: TextStyle(
+                  fontFamily: 'RedHatDisplay',
+                  fontSize: 18,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -171,12 +175,11 @@ class _HomePage extends State<HomePage> {
           Visibility(
             visible: _bluetoothState.isEnabled,
             child: ListTile(
-                title: Text(
-              "Device Name: $_name",
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 16,
+              title: Text(
+                "Device Name: $_name",
+                style: theme.textTheme.bodyMedium,
               ),
-            )),
+            ),
           ),
           const SizedBox(height: 16),
           Visibility(
@@ -236,12 +239,14 @@ class _HomePage extends State<HomePage> {
     );
   }
 
+  // Start remote connection to the device
   void _startRemoteConnection(BuildContext context, BluetoothDevice server) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return RemoteControlPage(server: server);
     }));
   }
 
+  // Show documentation dialog
   void _showDocumentationDialog(BuildContext context) {
     showCupertinoDialog(
       context: context,
@@ -267,6 +272,7 @@ class _HomePage extends State<HomePage> {
     );
   }
 
+  // Navigate to the onboarding screen
   void _navigateToOnboarding(BuildContext context) {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
@@ -275,6 +281,7 @@ class _HomePage extends State<HomePage> {
     );
   }
 
+  // Create and show tutorial
   Future<void> _createTutorial() async {
     final targets = [
       TargetFocus(
@@ -286,11 +293,10 @@ class _HomePage extends State<HomePage> {
             align: ContentAlign.bottom,
             builder: (context, controller) => Text(
               'You can always go back and read the guide again 😊',
-              style: GoogleFonts.redHatDisplay(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: Colors.white),
             ),
           ),
         ],
@@ -307,8 +313,7 @@ class _HomePage extends State<HomePage> {
   }
 }
 
-// CustomTextButton
-
+// CustomTextButton widget for consistent button styling
 class CustomTextButton extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
@@ -342,10 +347,7 @@ class CustomTextButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 16,
-                color: Colors.white,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
             ),
           ),
         ),

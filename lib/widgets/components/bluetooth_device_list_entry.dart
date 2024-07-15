@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class BluetoothDeviceListEntry extends ListTile {
   BluetoothDeviceListEntry({
@@ -19,8 +18,11 @@ class BluetoothDeviceListEntry extends ListTile {
           ),
           title: Text(
             device.name ?? "Unknown device",
-            style: GoogleFonts.redHatDisplay(
+            style: const TextStyle(
+              fontFamily: 'RedHatDisplay',
+              fontWeight: FontWeight.w600,
               fontSize: 16,
+              letterSpacing: 1,
             ),
           ),
           subtitle: Text(device.address.toString()),
@@ -29,45 +31,55 @@ class BluetoothDeviceListEntry extends ListTile {
             children: <Widget>[
               if (rssi != null)
                 Container(
-                  margin: EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
                   child: DefaultTextStyle(
                     style: () {
-                      if (rssi >= -35)
+                      if (rssi >= -35) {
                         return TextStyle(color: Colors.greenAccent[700]);
-                      else if (rssi >= -45)
+                      } else if (rssi >= -45) {
                         return TextStyle(
-                            color: Color.lerp(Colors.greenAccent[700],
-                                Colors.lightGreen, -(rssi + 35) / 10)!);
-                      else if (rssi >= -55)
+                          color: Color.lerp(Colors.greenAccent[700],
+                              Colors.lightGreen, -(rssi + 35) / 10)!,
+                        );
+                      } else if (rssi >= -55) {
                         return TextStyle(
-                            color: Color.lerp(Colors.lightGreen,
-                                Colors.lime[600], -(rssi + 45) / 10)!);
-                      else if (rssi >= -65)
+                          color: Color.lerp(Colors.lightGreen, Colors.lime[600],
+                              -(rssi + 45) / 10)!,
+                        );
+                      } else if (rssi >= -65) {
                         return TextStyle(
-                            color: Color.lerp(Colors.lime[600], Colors.amber,
-                                -(rssi + 55) / 10)!);
-                      else if (rssi >= -75)
+                          color: Color.lerp(Colors.lime[600], Colors.amber,
+                              -(rssi + 55) / 10)!,
+                        );
+                      } else if (rssi >= -75) {
                         return TextStyle(
-                            color: Color.lerp(Colors.amber,
-                                Colors.deepOrangeAccent, -(rssi + 65) / 10)!);
-                      else if (rssi >= -85)
+                          color: Color.lerp(Colors.amber,
+                              Colors.deepOrangeAccent, -(rssi + 65) / 10)!,
+                        );
+                      } else if (rssi >= -85) {
                         return TextStyle(
-                            color: Color.lerp(Colors.deepOrangeAccent,
-                                Colors.redAccent, -(rssi + 75) / 10)!);
-                      else
-                        return TextStyle(color: Colors.redAccent);
+                          color: Color.lerp(Colors.deepOrangeAccent,
+                              Colors.redAccent, -(rssi + 75) / 10)!,
+                        );
+                      } else {
+                        return const TextStyle(color: Colors.redAccent);
+                      }
                     }(),
                     child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(rssi.toString()),
-                          Text(
-                            'dBm',
-                            style: GoogleFonts.redHatDisplay(
-                              fontSize: 16,
-                            ),
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(rssi.toString()),
+                        const Text(
+                          'dBm',
+                          style: TextStyle(
+                            fontFamily: 'RedHatDisplay',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            letterSpacing: 1,
                           ),
-                        ]),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               if (device.isBonded)

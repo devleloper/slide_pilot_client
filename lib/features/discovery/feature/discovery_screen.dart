@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../widgets/widgets.dart';
 import 'discovery_logic.dart';
 
+// Entry point for the discovery page, initiates DiscoveryLogic.
 class DiscoveryPage extends StatelessWidget {
   final bool start;
 
@@ -19,6 +20,7 @@ class DiscoveryPage extends StatelessWidget {
   }
 }
 
+// UI for displaying discovered Bluetooth devices.
 class DiscoveryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

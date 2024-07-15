@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class IntroPage4 extends StatelessWidget {
   const IntroPage4({super.key});
@@ -16,20 +15,14 @@ class IntroPage4 extends StatelessWidget {
           children: [
             Text(
               'Get Started! 🎉',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 24,
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+              style:
+                  theme.textTheme.headlineMedium?.copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
               'You are now ready to start using Slide Pilot and take control of your presentations. Enjoy! 😃',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 16,
-                color: Colors.white,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ],

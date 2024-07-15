@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class IntroPage0 extends StatelessWidget {
   const IntroPage0({super.key});
@@ -25,20 +24,14 @@ class IntroPage0 extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               'Welcome to Slide Pilot! 👋',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 24,
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+              style:
+                  theme.textTheme.headlineMedium?.copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
               'Slide Pilot is your ultimate tool for managing presentations with ease. In the following steps, you will learn how to:',
-              style: GoogleFonts.redHatDisplay(
-                fontSize: 16,
-                color: Colors.white,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
@@ -55,11 +48,8 @@ class IntroPage0 extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'Set up your Android device for seamless connection.',
-                        style: GoogleFonts.redHatDisplay(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(color: Colors.white),
                       ),
                     ),
                   ],
@@ -75,11 +65,8 @@ class IntroPage0 extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'Install necessary software on your PC for connectivity.',
-                        style: GoogleFonts.redHatDisplay(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(color: Colors.white),
                       ),
                     ),
                   ],
@@ -95,11 +82,8 @@ class IntroPage0 extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'Establish a connection and get started',
-                        style: GoogleFonts.redHatDisplay(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(color: Colors.white),
                       ),
                     ),
                   ],

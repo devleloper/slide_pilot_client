@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../features/features.dart';
 
 class CustomSwitchListTile extends StatelessWidget {
@@ -19,7 +18,7 @@ class CustomSwitchListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
@@ -27,9 +26,8 @@ class CustomSwitchListTile extends StatelessWidget {
         children: [
           Text(
             title,
-            style: GoogleFonts.redHatDisplay(
+            style: theme.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w600,
-              fontSize: 16,
             ),
           ),
           CupertinoSwitch(
