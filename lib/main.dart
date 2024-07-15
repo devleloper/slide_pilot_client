@@ -1,19 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:slide_pilot_client/models/view/firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:slide_pilot_client/features/guide/guide.dart';
-import 'package:slide_pilot_client/models/view/firebase_options.dart';
-import 'features/home/home.dart';
+import 'features/features.dart';
 import 'theme/theme.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initializeFirebase();
   await _requestPermissions();
-  runApp(SlidePilotApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  runApp(const SlidePilotApp());
 }
 
 Future<void> _initializeFirebase() async {

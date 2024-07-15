@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:control_pad_plus/control_pad_plus.dart';
 import '../../../theme/theme.dart';
-
 import '../../../widgets/widgets.dart';
 import 'remote_control_logic.dart';
 
