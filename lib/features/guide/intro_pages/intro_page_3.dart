@@ -31,7 +31,7 @@ class IntroPage3 extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  'Step 1: Press the "Discovery PC" button on your Android device.',
+                  'Step 1: Press the "Scan for PC" button on your Android device.',
                   style:
                       theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
                   textAlign: TextAlign.start,

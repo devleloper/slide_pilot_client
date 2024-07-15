@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:provider/provider.dart';
 import '../../../widgets/widgets.dart';
-import 'discovery_logic.dart';
+import 'scanning_logic.dart';
 
 class DiscoveryPage extends StatelessWidget {
   final bool start;
@@ -13,7 +13,7 @@ class DiscoveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => DiscoveryLogic(start),
+      create: (_) => ScanningLogic(start),
       child: DiscoveryScreen(),
     );
   }
@@ -22,16 +22,16 @@ class DiscoveryPage extends StatelessWidget {
 class DiscoveryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final discoveryLogic = Provider.of<DiscoveryLogic>(context);
-    final results = discoveryLogic.results;
+    final scanningLogic = Provider.of<ScanningLogic>(context);
+    final results = scanningLogic.results;
 
     return Scaffold(
       appBar: AppBar(
-        title: discoveryLogic.isDiscovering
-            ? const Text('Discovering devices')
-            : const Text('Discovered devices'),
+        title: scanningLogic.isDiscovering
+            ? const Text('Scanning for devices')
+            : const Text('Devices detected'),
         actions: <Widget>[
-          discoveryLogic.isDiscovering
+          scanningLogic.isDiscovering
               ? FittedBox(
                   child: Container(
                       margin: const EdgeInsets.all(16.0),
@@ -42,7 +42,7 @@ class DiscoveryScreen extends StatelessWidget {
                   icon: const Icon(
                     CupertinoIcons.refresh,
                   ),
-                  onPressed: discoveryLogic.restartDiscovery,
+                  onPressed: scanningLogic.restartDiscovery,
                 )
         ],
       ),
@@ -53,7 +53,7 @@ class DiscoveryScreen extends StatelessWidget {
           return BluetoothDeviceListEntry(
             device: result.device,
             rssi: result.rssi,
-            onTap: () => discoveryLogic.handleDeviceTap(context, result),
+            onTap: () => scanningLogic.handleDeviceTap(context, result),
           );
         },
       ),

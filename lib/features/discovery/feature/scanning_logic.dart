@@ -4,13 +4,13 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // DiscoveryLogic class handles the logic for Bluetooth device discovery.
-class DiscoveryLogic extends ChangeNotifier {
+class ScanningLogic extends ChangeNotifier {
   StreamSubscription<BluetoothDiscoveryResult>? _streamSubscription;
   List<BluetoothDiscoveryResult> results = <BluetoothDiscoveryResult>[];
   bool isDiscovering = false;
 
   // Constructor to initialize discovery state.
-  DiscoveryLogic(bool start) {
+  ScanningLogic(bool start) {
     isDiscovering = start;
     if (isDiscovering) {
       _startDiscovery();

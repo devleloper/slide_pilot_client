@@ -205,7 +205,7 @@ class _HomePage extends State<HomePage> {
                         }
                       }
                     : null,
-                title: 'Discovery PC',
+                title: 'Scan for PC',
               ),
             ),
           ),
@@ -232,7 +232,7 @@ class _HomePage extends State<HomePage> {
                         }
                       }
                     : null,
-                title: 'Connect to paired PC to control',
+                title: 'Control Paired PC',
               ),
             ),
           ),
