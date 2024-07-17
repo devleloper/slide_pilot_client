@@ -15,6 +15,7 @@ class _IntroPage1State extends State<IntroPage1> {
   bool isBluetoothConnectGranted = false;
   bool isBluetoothScanGranted = false;
   bool isLocationGranted = false;
+  bool isNotificationGranted = false;
 
   // Request permission and update state when granted
   Future<void> _requestPermission(
@@ -56,43 +57,15 @@ class _IntroPage1State extends State<IntroPage1> {
             ),
             const SizedBox(height: 32),
             CustomTextGuideButton(
-              icon: isBluetoothGranted
-                  ? CupertinoIcons.checkmark_alt_circle_fill
-                  : CupertinoIcons.bluetooth,
-              title: isBluetoothGranted
-                  ? 'Bluetooth Permission Granted'
-                  : 'Grant Bluetooth Permission',
-              onTap: () => _requestPermission(Permission.bluetooth, () {
-                setState(() {
-                  isBluetoothGranted = true;
-                });
-              }),
-            ),
-            const SizedBox(height: 16),
-            CustomTextGuideButton(
               icon: isBluetoothConnectGranted
                   ? CupertinoIcons.checkmark_alt_circle_fill
                   : CupertinoIcons.bluetooth,
               title: isBluetoothConnectGranted
-                  ? 'Bluetooth Connect Permission Granted'
-                  : 'Grant Bluetooth Connect Permission',
+                  ? 'Permission Granted'
+                  : 'Grant Bluetooth Permission',
               onTap: () => _requestPermission(Permission.bluetoothConnect, () {
                 setState(() {
                   isBluetoothConnectGranted = true;
-                });
-              }),
-            ),
-            const SizedBox(height: 16),
-            CustomTextGuideButton(
-              icon: isBluetoothScanGranted
-                  ? CupertinoIcons.checkmark_alt_circle_fill
-                  : CupertinoIcons.bluetooth,
-              title: isBluetoothScanGranted
-                  ? 'Bluetooth Scan Permission Granted'
-                  : 'Grant Bluetooth Scan Permission',
-              onTap: () => _requestPermission(Permission.bluetoothScan, () {
-                setState(() {
-                  isBluetoothScanGranted = true;
                 });
               }),
             ),
@@ -102,11 +75,25 @@ class _IntroPage1State extends State<IntroPage1> {
                   ? CupertinoIcons.checkmark_alt_circle_fill
                   : CupertinoIcons.location_solid,
               title: isLocationGranted
-                  ? 'Location Permission Granted'
-                  : 'Grant Coarse Location Permission',
+                  ? 'Permission Granted'
+                  : 'Grant Location Permission',
               onTap: () => _requestPermission(Permission.location, () {
                 setState(() {
                   isLocationGranted = true;
+                });
+              }),
+            ),
+            const SizedBox(height: 16),
+            CustomTextGuideButton(
+              icon: isNotificationGranted
+                  ? CupertinoIcons.checkmark_alt_circle_fill
+                  : CupertinoIcons.bell_solid,
+              title: isNotificationGranted
+                  ? 'Permission Granted'
+                  : 'Grant Notification Permission',
+              onTap: () => _requestPermission(Permission.notification, () {
+                setState(() {
+                  isNotificationGranted = true;
                 });
               }),
             ),

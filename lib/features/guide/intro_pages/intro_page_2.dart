@@ -43,9 +43,15 @@ class IntroPage2 extends StatelessWidget {
             const SizedBox(height: 16),
             CustomTextGuideButton(
               icon: CupertinoIcons.arrow_down_circle_fill,
-              title: 'Download All in One Archive',
+              title: 'Download All-In-One Archive',
               onTap: () =>
-                  _launchURL('https://example.com/all_in_one_archive.zip'),
+                  _launchURL('https://blism.uz/slidepilot/home#downloads'),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'blism.uz/slidepilot/home',
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
             Text(

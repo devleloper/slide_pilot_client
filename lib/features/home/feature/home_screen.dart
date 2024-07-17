@@ -104,7 +104,7 @@ class _HomePage extends State<HomePage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Version 1.0.0',
+                'Version 1.1.0',
                 style: TextStyle(
                   fontFamily: 'RedHatDisplaySemiBold',
                   fontSize: 12,
@@ -112,7 +112,7 @@ class _HomePage extends State<HomePage> {
               ),
               SizedBox(height: 16),
               Text(
-                'Developed by Devlet Boltaev in Blism Solutions',
+                'Developed by Devlet Boltaev at Blism Solutions',
                 style: TextStyle(
                   fontFamily: 'RedHatDisplaySemiBold',
                   fontSize: 12,

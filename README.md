@@ -34,14 +34,20 @@ The project uses the following libraries and frameworks:
 - [control_pad_plus](https://pub.dev/packages/control_pad_plus) - Creates customizable control pads, useful for joystick or direction pad inputs.
 - [permission_handler](https://pub.dev/packages/permission_handler) - Manages app permissions, simplifying requests and compliance with platform policies.
 - [provider](https://pub.dev/packages/provider) - Offers state management solutions, improving app performance and maintainability.
-- [google_fonts](https://pub.dev/packages/google_fonts) - Integrates Google Fonts, enhancing the app's typography and visual appeal.
 - [url_launcher](https://pub.dev/packages/url_launcher) - Launches URLs, enabling web page, email, and link access from within the app.
+- [firebase_core](https://pub.dev/packages/firebase_core) - Initializes and configures Firebase services.
+- [firebase_analytics](https://pub.dev/packages/firebase_analytics) - Enables tracking of user interactions within the app for analytics purposes.
+- [tutorial_coach_mark](https://pub.dev/packages/tutorial_coach_mark) - Creates tutorial overlays to guide users through the app.
+- [shared_preferences](https://pub.dev/packages/shared_preferences) - Provides persistent storage for simple data, allowing for saving and loading of user preferences.
+- [flutter_svg](https://pub.dev/packages/flutter_svg) - Renders SVG images, providing scalable graphics.
+- [smooth_page_indicator](https://pub.dev/packages/smooth_page_indicator) - Adds smooth page indicators for page view widgets.
+- [onesignal_flutter](https://pub.dev/packages/onesignal_flutter) - Integrates OneSignal for push notifications.
 
 
 ## Requirements
 - Flutter SDK: Version 2.10.0 or higher.
 - Android SDK: Version 30 or higher.
-- JDK: Version 11.
+- JDK: Version 17.
 
 ## Authors
 

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:slide_pilot_client/models/view/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initializeFirebase();
   await _requestPermissions();
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  OneSignal.initialize("ae1a1331-8642-4f7d-88b4-7dabf934695d");
+  OneSignal.Notifications.requestPermission(true);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(const SlidePilotApp());
