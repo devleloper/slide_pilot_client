@@ -60,7 +60,7 @@ class _IntroPage1State extends State<IntroPage1> {
                   ? CupertinoIcons.checkmark_alt_circle_fill
                   : CupertinoIcons.bluetooth,
               title: isBluetoothGranted
-                  ? 'Bluetooth Permission Granted'
+                  ? 'Permission Granted'
                   : 'Grant Bluetooth Permission',
               onTap: () => _requestPermission(Permission.bluetooth, () {
                 setState(() {
@@ -74,7 +74,7 @@ class _IntroPage1State extends State<IntroPage1> {
                   ? CupertinoIcons.checkmark_alt_circle_fill
                   : CupertinoIcons.bluetooth,
               title: isBluetoothConnectGranted
-                  ? 'Bluetooth Connect Permission Granted'
+                  ? 'Permission Granted'
                   : 'Grant Bluetooth Connect Permission',
               onTap: () => _requestPermission(Permission.bluetoothConnect, () {
                 setState(() {
@@ -88,7 +88,7 @@ class _IntroPage1State extends State<IntroPage1> {
                   ? CupertinoIcons.checkmark_alt_circle_fill
                   : CupertinoIcons.bluetooth,
               title: isBluetoothScanGranted
-                  ? 'Bluetooth Scan Permission Granted'
+                  ? 'Permission Granted'
                   : 'Grant Bluetooth Scan Permission',
               onTap: () => _requestPermission(Permission.bluetoothScan, () {
                 setState(() {
@@ -102,7 +102,7 @@ class _IntroPage1State extends State<IntroPage1> {
                   ? CupertinoIcons.checkmark_alt_circle_fill
                   : CupertinoIcons.location_solid,
               title: isLocationGranted
-                  ? 'Location Permission Granted'
+                  ? 'Permission Granted'
                   : 'Grant Coarse Location Permission',
               onTap: () => _requestPermission(Permission.location, () {
                 setState(() {
