@@ -297,6 +297,8 @@ class MessageInputField extends StatelessWidget {
   }
 }
 
+// Touchpad
+
 class TouchArea extends StatelessWidget {
   const TouchArea({super.key, required this.dx, required this.dy});
   final double dx, dy;
