@@ -288,6 +288,7 @@ class _HomePage extends State<HomePage> {
   Future<void> _createTutorial() async {
     final targets = [
       TargetFocus(
+        shape: ShapeLightFocus.Circle,
         identify: 'helpButton',
         keyTarget: _helpButtonKey,
         alignSkip: Alignment.bottomCenter,

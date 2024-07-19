@@ -4,7 +4,6 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:slide_pilot_client/models/view/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'features/features.dart';
 import 'theme/theme.dart';
@@ -12,10 +11,8 @@ import 'theme/theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initializeFirebase();
-  await _requestPermissions();
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
   OneSignal.initialize("ae1a1331-8642-4f7d-88b4-7dabf934695d");
-  OneSignal.Notifications.requestPermission(true);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(const SlidePilotApp());
@@ -28,20 +25,6 @@ Future<void> _initializeFirebase() async {
   } catch (e) {
     // Handle Firebase initialization error
     debugPrint('Firebase initialization error: $e');
-  }
-}
-
-Future<void> _requestPermissions() async {
-  try {
-    await [
-      Permission.bluetooth,
-      Permission.bluetoothScan,
-      Permission.bluetoothConnect,
-      Permission.location,
-    ].request();
-  } catch (e) {
-    // Handle permission request error
-    debugPrint('Permission request error: $e');
   }
 }
 

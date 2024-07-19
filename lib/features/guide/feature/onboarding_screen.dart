@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:slide_pilot_client/features/home/home.dart';
 import 'package:slide_pilot_client/theme/theme.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -19,6 +20,56 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   bool onLastPage = false;
+
+  // Check if all necessary permissions are granted
+  Future<bool> _areAllPermissionsGranted() async {
+    final bluetoothConnectStatus = await Permission.bluetoothConnect.status;
+    final locationStatus = await Permission.location.status;
+
+    return bluetoothConnectStatus.isGranted && locationStatus.isGranted;
+  }
+
+  void _showPermissionError() {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        title: Column(
+          children: [
+            Icon(CupertinoIcons.exclamationmark_triangle_fill,
+                size: 40, color: Theme.of(context).primaryColor),
+            const SizedBox(height: 8),
+            const Text('Permissions Required'),
+          ],
+        ),
+        content: const Text(
+            'Please grant all required permissions to ensure the app functions correctly. If you deny, some features may not work properly.'),
+        actions: [
+          CupertinoDialogAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+            },
+            child: const Text('Deny'),
+          ),
+          CupertinoDialogAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _controller.jumpToPage(1);
+            },
+            child: const Text(
+              'Allow',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +107,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     : CupertinoIcons.chevron_compact_right,
                 title: onLastPage ? 'Done' : 'Next',
                 onTap: onLastPage
-                    ? () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomePage(),
-                          ),
-                        );
+                    ? () async {
+                        if (await _areAllPermissionsGranted()) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomePage(),
+                            ),
+                          );
+                        } else {
+                          _showPermissionError();
+                        }
                       }
                     : () {
                         _controller.nextPage(
