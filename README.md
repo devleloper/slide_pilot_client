@@ -2,6 +2,8 @@
 
 Slide Pilot is a convenient and easy-to-use application for remote presentation control via a smartphone. It allows you to control presentation slides like a clicker through Bluetooth.
 
+![Banner](https://github.com/user-attachments/assets/de085c96-c41d-4098-92a4-3b0f151cff15)
+
 ## Key Features
 
 Slide Control: Switch slides forward and backward.
